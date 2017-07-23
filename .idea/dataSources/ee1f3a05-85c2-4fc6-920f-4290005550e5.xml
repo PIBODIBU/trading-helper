@@ -1,0 +1,1193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="futoria@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="4.1">
+    <root id="1"/>
+    <schema id="2" parent="1" name="futoria">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="information_schema"/>
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="nau_tests"/>
+    <schema id="6" parent="1" name="performance_schema"/>
+    <schema id="7" parent="1" name="phpmyadmin"/>
+    <schema id="8" parent="1" name="sys"/>
+    <schema id="9" parent="1" name="zhuravel"/>
+    <table id="10" parent="2" name="sys_department"/>
+    <table id="11" parent="2" name="sys_faculty"/>
+    <table id="12" parent="2" name="sys_permission"/>
+    <table id="13" parent="2" name="sys_rel_role_permission"/>
+    <table id="14" parent="2" name="sys_rel_user_role"/>
+    <table id="15" parent="2" name="sys_rel_user_sub_role"/>
+    <table id="16" parent="2" name="sys_role"/>
+    <table id="17" parent="2" name="sys_sub_role"/>
+    <table id="18" parent="2" name="sys_subject"/>
+    <table id="19" parent="2" name="sys_university"/>
+    <table id="20" parent="2" name="sys_university_group"/>
+    <table id="21" parent="2" name="sys_user"/>
+    <table id="22" parent="2" name="sys_user_data"/>
+    <table id="23" parent="2" name="tst_rel_test_question"/>
+    <table id="24" parent="2" name="tst_rel_test_topic"/>
+    <table id="25" parent="2" name="tst_rel_user_subject"/>
+    <table id="26" parent="2" name="tst_subject_topic"/>
+    <table id="27" parent="2" name="tst_test"/>
+    <table id="28" parent="2" name="tst_test_answer"/>
+    <table id="29" parent="2" name="tst_test_answer_type"/>
+    <table id="30" parent="2" name="tst_test_permission"/>
+    <table id="31" parent="2" name="tst_test_question"/>
+    <table id="32" parent="2" name="tst_test_question_difficulty"/>
+    <table id="33" parent="2" name="tst_test_session"/>
+    <table id="34" parent="2" name="tst_test_session_answer"/>
+    <table id="35" parent="2" name="tst_test_type"/>
+    <column id="36" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="37" parent="10" name="short_name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="38" parent="10" name="long_name">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="39" parent="10" name="faculty_id">
+      <Position>4</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="40" parent="10" name="sys_department_long_name_uindex">
+      <ColNames>long_name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="41" parent="10" name="sys_department_short_name_uindex">
+      <ColNames>short_name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="42" parent="10" name="sys_department_sys_faculty_id_fk">
+      <ColNames>faculty_id</ColNames>
+    </index>
+    <key id="43" parent="10" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="44" parent="10" name="sys_department_short_name_uindex">
+      <ColNames>short_name</ColNames>
+      <UnderlyingIndexName>sys_department_short_name_uindex</UnderlyingIndexName>
+    </key>
+    <key id="45" parent="10" name="sys_department_long_name_uindex">
+      <ColNames>long_name</ColNames>
+      <UnderlyingIndexName>sys_department_long_name_uindex</UnderlyingIndexName>
+    </key>
+    <foreign-key id="46" parent="10" name="sys_department_sys_faculty_id_fk">
+      <ColNames>faculty_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_faculty</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="47" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="48" parent="11" name="short_name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="49" parent="11" name="long_name">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="50" parent="11" name="university_id">
+      <Position>4</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="51" parent="11" name="sys_faculty_long_name_uindex">
+      <ColNames>long_name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="52" parent="11" name="sys_faculty_short_name_uindex">
+      <ColNames>short_name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="53" parent="11" name="sys_faculty_sys_university_id_fk">
+      <ColNames>university_id</ColNames>
+    </index>
+    <key id="54" parent="11" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="55" parent="11" name="sys_faculty_short_name_uindex">
+      <ColNames>short_name</ColNames>
+      <UnderlyingIndexName>sys_faculty_short_name_uindex</UnderlyingIndexName>
+    </key>
+    <key id="56" parent="11" name="sys_faculty_long_name_uindex">
+      <ColNames>long_name</ColNames>
+      <UnderlyingIndexName>sys_faculty_long_name_uindex</UnderlyingIndexName>
+    </key>
+    <foreign-key id="57" parent="11" name="sys_faculty_sys_university_id_fk">
+      <ColNames>university_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_university</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="58" parent="12" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="59" parent="12" name="name">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="60" parent="12" name="description">
+      <Position>3</Position>
+      <DataType>varchar(300)|0</DataType>
+    </column>
+    <key id="61" parent="12" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="62" parent="13" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="63" parent="13" name="role_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="64" parent="13" name="permission_id">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="65" parent="13" name="sys_rel_role_permission_fk0">
+      <ColNames>role_id</ColNames>
+    </index>
+    <index id="66" parent="13" name="sys_rel_role_permission_fk1">
+      <ColNames>permission_id</ColNames>
+    </index>
+    <key id="67" parent="13" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="68" parent="13" name="sys_rel_role_permission_fk0">
+      <ColNames>role_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_role</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="69" parent="13" name="sys_rel_role_permission_fk1">
+      <ColNames>permission_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_permission</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="70" parent="14" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="71" parent="14" name="username">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="72" parent="14" name="role_name">
+      <Position>3</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="73" parent="14" name="user_id">
+      <Position>4</Position>
+      <DataType>bigint(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="74" parent="14" name="role_id">
+      <Position>5</Position>
+      <DataType>bigint(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="75" parent="14" name="sys_rel_user_role_fk2">
+      <ColNames>username</ColNames>
+    </index>
+    <index id="76" parent="14" name="sys_rel_user_role_fk3">
+      <ColNames>role_name</ColNames>
+    </index>
+    <index id="77" parent="14" name="sys_rel_user_role_ibfk_3">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="78" parent="14" name="sys_rel_user_role_ibfk_4">
+      <ColNames>role_id</ColNames>
+    </index>
+    <key id="79" parent="14" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="80" parent="14" name="sys_rel_user_role_fk2">
+      <ColNames>username</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_user</RefTableName>
+      <RefColNames>username</RefColNames>
+    </foreign-key>
+    <foreign-key id="81" parent="14" name="sys_rel_user_role_ibfk_1">
+      <ColNames>role_name</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_role</RefTableName>
+      <RefColNames>role_name</RefColNames>
+    </foreign-key>
+    <foreign-key id="82" parent="14" name="sys_rel_user_role_ibfk_3">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="83" parent="14" name="sys_rel_user_role_ibfk_4">
+      <ColNames>role_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_role</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="84" parent="15" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="85" parent="15" name="user_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="86" parent="15" name="sub_role_id">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="87" parent="15" name="sys_rel_user_sub_role_fk0">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="88" parent="15" name="sys_rel_user_sub_role_fk1">
+      <ColNames>sub_role_id</ColNames>
+    </index>
+    <key id="89" parent="15" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="90" parent="15" name="sys_rel_user_sub_role_fk0">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="91" parent="15" name="sys_rel_user_sub_role_fk1">
+      <ColNames>sub_role_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_sub_role</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="92" parent="16" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="93" parent="16" name="role_name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="94" parent="16" name="description">
+      <Position>3</Position>
+      <DataType>varchar(300)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="95" parent="16" name="role_name">
+      <ColNames>role_name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="96" parent="16" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="97" parent="16" name="role_name">
+      <ColNames>role_name</ColNames>
+      <UnderlyingIndexName>role_name</UnderlyingIndexName>
+    </key>
+    <column id="98" parent="17" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="99" parent="17" name="name">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <key id="100" parent="17" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="101" parent="18" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="102" parent="18" name="department_id">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="103" parent="18" name="uuid">
+      <Position>2</Position>
+      <DataType>varchar(36)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="104" parent="18" name="long_name">
+      <Position>4</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="105" parent="18" name="short_name">
+      <Position>5</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="106" parent="18" name="sys_subject_fk1">
+      <ColNames>department_id</ColNames>
+    </index>
+    <index id="107" parent="18" name="sys_subject_uuid_uindex">
+      <ColNames>uuid</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="108" parent="18" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="109" parent="18" name="sys_subject_uuid_uindex">
+      <ColNames>uuid</ColNames>
+      <UnderlyingIndexName>sys_subject_uuid_uindex</UnderlyingIndexName>
+    </key>
+    <foreign-key id="110" parent="18" name="sys_subject_fk1">
+      <ColNames>department_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_department</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="111" parent="19" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="112" parent="19" name="short_name">
+      <Position>2</Position>
+      <DataType>varchar(50)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="113" parent="19" name="long_name">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="114" parent="19" name="sys_university_long_name_uindex">
+      <ColNames>long_name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="115" parent="19" name="sys_university_short_name_uindex">
+      <ColNames>short_name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="116" parent="19" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="117" parent="19" name="sys_university_short_name_uindex">
+      <ColNames>short_name</ColNames>
+      <UnderlyingIndexName>sys_university_short_name_uindex</UnderlyingIndexName>
+    </key>
+    <key id="118" parent="19" name="sys_university_long_name_uindex">
+      <ColNames>long_name</ColNames>
+      <UnderlyingIndexName>sys_university_long_name_uindex</UnderlyingIndexName>
+    </key>
+    <column id="119" parent="20" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="120" parent="20" name="name">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="121" parent="20" name="sub_group">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="122" parent="20" name="department_id">
+      <Position>4</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="123" parent="20" name="master_id">
+      <Position>5</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="124" parent="20" name="sys_university_group_sys_department_id_fk">
+      <ColNames>department_id</ColNames>
+    </index>
+    <index id="125" parent="20" name="sys_university_group_sys_user_id_fk">
+      <ColNames>master_id</ColNames>
+    </index>
+    <key id="126" parent="20" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="127" parent="20" name="sys_university_group_sys_department_id_fk">
+      <ColNames>department_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_department</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="128" parent="20" name="sys_university_group_sys_user_id_fk">
+      <ColNames>master_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="129" parent="21" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="130" parent="21" name="name_first">
+      <Position>2</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="131" parent="21" name="name_last">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="132" parent="21" name="name_middle">
+      <Position>4</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="133" parent="21" name="email">
+      <Position>5</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="134" parent="21" name="username">
+      <Position>6</Position>
+      <DataType>varchar(30)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="135" parent="21" name="password">
+      <Position>7</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="136" parent="21" name="is_enabled">
+      <Position>8</Position>
+      <DataType>tinyint(4)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;1&apos;</DefaultExpression>
+    </column>
+    <column id="137" parent="21" name="date_created">
+      <Position>9</Position>
+      <DataType>datetime|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="138" parent="21" name="date_modified">
+      <Position>10</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <index id="139" parent="21" name="email">
+      <ColNames>email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="140" parent="21" name="username">
+      <ColNames>username</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="141" parent="21" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="142" parent="21" name="email">
+      <ColNames>email</ColNames>
+      <UnderlyingIndexName>email</UnderlyingIndexName>
+    </key>
+    <key id="143" parent="21" name="username">
+      <ColNames>username</ColNames>
+      <UnderlyingIndexName>username</UnderlyingIndexName>
+    </key>
+    <column id="144" parent="22" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="145" parent="22" name="user_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="146" parent="22" name="book_num">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="147" parent="22" name="phone">
+      <Position>4</Position>
+      <DataType>varchar(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="148" parent="22" name="group_id">
+      <Position>5</Position>
+      <DataType>bigint(20)|0</DataType>
+    </column>
+    <index id="149" parent="22" name="book_num">
+      <ColNames>book_num</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="150" parent="22" name="phone">
+      <ColNames>phone</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="151" parent="22" name="sys_user_data_fk0">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="152" parent="22" name="sys_user_data_fk4">
+      <ColNames>group_id</ColNames>
+    </index>
+    <key id="153" parent="22" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="154" parent="22" name="book_num">
+      <ColNames>book_num</ColNames>
+      <UnderlyingIndexName>book_num</UnderlyingIndexName>
+    </key>
+    <key id="155" parent="22" name="phone">
+      <ColNames>phone</ColNames>
+      <UnderlyingIndexName>phone</UnderlyingIndexName>
+    </key>
+    <foreign-key id="156" parent="22" name="sys_user_data_fk0">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="157" parent="22" name="sys_user_data_fk4">
+      <ColNames>group_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_university_group</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="158" parent="23" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="159" parent="23" name="test_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="160" parent="23" name="question_id">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="161" parent="23" name="tst_rel_test_question_tst_test_id_fk">
+      <ColNames>test_id</ColNames>
+    </index>
+    <index id="162" parent="23" name="tst_rel_test_question_tst_test_question_id_fk">
+      <ColNames>question_id</ColNames>
+    </index>
+    <key id="163" parent="23" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="164" parent="23" name="tst_rel_test_question_tst_test_id_fk">
+      <ColNames>test_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="165" parent="23" name="tst_rel_test_question_tst_test_question_id_fk">
+      <ColNames>question_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test_question</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="166" parent="24" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="167" parent="24" name="test_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="168" parent="24" name="topic_id">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="169" parent="24" name="tst_rel_test_topic_fk0">
+      <ColNames>test_id</ColNames>
+    </index>
+    <index id="170" parent="24" name="tst_rel_test_topic_fk1">
+      <ColNames>topic_id</ColNames>
+    </index>
+    <key id="171" parent="24" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="172" parent="24" name="tst_rel_test_topic_fk0">
+      <ColNames>test_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="173" parent="24" name="tst_rel_test_topic_fk1">
+      <ColNames>topic_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_subject_topic</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="174" parent="25" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="175" parent="25" name="user_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="176" parent="25" name="subject_id">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="177" parent="25" name="tst_rel_user_subject_fk0">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="178" parent="25" name="tst_rel_user_subject_fk1">
+      <ColNames>subject_id</ColNames>
+    </index>
+    <key id="179" parent="25" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="180" parent="25" name="tst_rel_user_subject_fk0">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="181" parent="25" name="tst_rel_user_subject_fk1">
+      <ColNames>subject_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_subject</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="182" parent="26" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="183" parent="26" name="subject_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="184" parent="26" name="tst_subject_topic_fk0">
+      <ColNames>subject_id</ColNames>
+    </index>
+    <key id="185" parent="26" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="186" parent="26" name="tst_subject_topic_fk0">
+      <ColNames>subject_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_subject</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="187" parent="27" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="188" parent="27" name="subject_id">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="189" parent="27" name="need_validation">
+      <Position>5</Position>
+      <DataType>tinyint(4)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="190" parent="27" name="user_owner_id">
+      <Position>4</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="191" parent="27" name="uuid">
+      <Position>2</Position>
+      <DataType>varchar(36)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="192" parent="27" name="title">
+      <Position>6</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="193" parent="27" name="tst_test_fk0">
+      <ColNames>subject_id</ColNames>
+    </index>
+    <index id="194" parent="27" name="tst_test_fk1">
+      <ColNames>user_owner_id</ColNames>
+    </index>
+    <index id="195" parent="27" name="tst_test_uuid_uindex">
+      <ColNames>uuid</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="196" parent="27" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="197" parent="27" name="tst_test_uuid_uindex">
+      <ColNames>uuid</ColNames>
+      <UnderlyingIndexName>tst_test_uuid_uindex</UnderlyingIndexName>
+    </key>
+    <foreign-key id="198" parent="27" name="tst_test_fk0">
+      <ColNames>subject_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_subject</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="199" parent="27" name="tst_test_fk1">
+      <ColNames>user_owner_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="200" parent="28" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="201" parent="28" name="question_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="202" parent="28" name="type">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="203" parent="28" name="text">
+      <Position>4</Position>
+      <DataType>varchar(300)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="204" parent="28" name="is_correct">
+      <Position>5</Position>
+      <DataType>tinyint(4)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="205" parent="28" name="tst_test_answer_fk0">
+      <ColNames>question_id</ColNames>
+    </index>
+    <index id="206" parent="28" name="tst_test_answer_fk1">
+      <ColNames>type</ColNames>
+    </index>
+    <key id="207" parent="28" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="208" parent="28" name="tst_test_answer_fk0">
+      <ColNames>question_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test_question</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="209" parent="28" name="tst_test_answer_fk1">
+      <ColNames>type</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test_answer_type</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="210" parent="29" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="211" parent="29" name="type">
+      <Position>2</Position>
+      <DataType>varchar(64)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="212" parent="29" name="description">
+      <Position>3</Position>
+      <DataType>varchar(300)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="213" parent="29" name="type">
+      <ColNames>type</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="214" parent="29" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="215" parent="29" name="type">
+      <ColNames>type</ColNames>
+      <UnderlyingIndexName>type</UnderlyingIndexName>
+    </key>
+    <column id="216" parent="30" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="217" parent="30" name="user_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="218" parent="30" name="user_grander_id">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="219" parent="30" name="test_id">
+      <Position>4</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="220" parent="30" name="test_session_id">
+      <Position>5</Position>
+      <DataType>bigint(20)|0</DataType>
+    </column>
+    <column id="221" parent="30" name="is_expired">
+      <Position>6</Position>
+      <DataType>tinyint(4)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <column id="222" parent="30" name="date_expiration">
+      <Position>7</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <index id="223" parent="30" name="tst_test_permission_fk0">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="224" parent="30" name="tst_test_permission_fk1">
+      <ColNames>user_grander_id</ColNames>
+    </index>
+    <index id="225" parent="30" name="tst_test_permission_fk2">
+      <ColNames>test_id</ColNames>
+    </index>
+    <index id="226" parent="30" name="tst_test_permission_fk3">
+      <ColNames>test_session_id</ColNames>
+    </index>
+    <key id="227" parent="30" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="228" parent="30" name="tst_test_permission_fk0">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="229" parent="30" name="tst_test_permission_fk1">
+      <ColNames>user_grander_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="230" parent="30" name="tst_test_permission_fk2">
+      <ColNames>test_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="231" parent="30" name="tst_test_permission_fk3">
+      <ColNames>test_session_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test_session</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="232" parent="31" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="233" parent="31" name="difficulty_level_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="234" parent="31" name="title">
+      <Position>3</Position>
+      <DataType>varchar(200)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="235" parent="31" name="tst_test_question_fk1">
+      <ColNames>difficulty_level_id</ColNames>
+    </index>
+    <key id="236" parent="31" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="237" parent="31" name="tst_test_question_fk1">
+      <ColNames>difficulty_level_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test_question_difficulty</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="238" parent="32" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="239" parent="32" name="level">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="240" parent="32" name="description">
+      <Position>3</Position>
+      <DataType>varchar(300)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="241" parent="32" name="level">
+      <ColNames>level</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="242" parent="32" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="243" parent="32" name="level">
+      <ColNames>level</ColNames>
+      <UnderlyingIndexName>level</UnderlyingIndexName>
+    </key>
+    <column id="244" parent="33" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="245" parent="33" name="user_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="246" parent="33" name="test_id">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="247" parent="33" name="date_start">
+      <Position>4</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="248" parent="33" name="date_end">
+      <Position>5</Position>
+      <DataType>datetime|0</DataType>
+    </column>
+    <column id="249" parent="33" name="is_started">
+      <Position>6</Position>
+      <DataType>tinyint(4)|0</DataType>
+      <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
+    </column>
+    <index id="250" parent="33" name="tst_test_session_fk0">
+      <ColNames>user_id</ColNames>
+    </index>
+    <index id="251" parent="33" name="tst_test_session_fk1">
+      <ColNames>test_id</ColNames>
+    </index>
+    <key id="252" parent="33" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="253" parent="33" name="tst_test_session_fk0">
+      <ColNames>user_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>sys_user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="254" parent="33" name="tst_test_session_fk1">
+      <ColNames>test_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="255" parent="34" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="256" parent="34" name="test_session_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="257" parent="34" name="answer_id">
+      <Position>3</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="258" parent="34" name="answer">
+      <Position>4</Position>
+      <DataType>varchar(100)|0</DataType>
+    </column>
+    <column id="259" parent="34" name="answer_file_name">
+      <Position>5</Position>
+      <DataType>varchar(300)|0</DataType>
+    </column>
+    <column id="260" parent="34" name="answer_type">
+      <Position>6</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="261" parent="34" name="tst_test_session_answer_fk0">
+      <ColNames>test_session_id</ColNames>
+    </index>
+    <index id="262" parent="34" name="tst_test_session_answer_fk1">
+      <ColNames>answer_id</ColNames>
+    </index>
+    <index id="263" parent="34" name="tst_test_session_answer_fk2">
+      <ColNames>answer_type</ColNames>
+    </index>
+    <key id="264" parent="34" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="265" parent="34" name="tst_test_session_answer_fk0">
+      <ColNames>test_session_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test_session</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="266" parent="34" name="tst_test_session_answer_fk1">
+      <ColNames>answer_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test_answer</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="267" parent="34" name="tst_test_session_answer_fk2">
+      <ColNames>answer_type</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test_answer_type</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="268" parent="35" name="id">
+      <Position>1</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+    </column>
+    <column id="269" parent="35" name="test_id">
+      <Position>2</Position>
+      <DataType>bigint(20)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="270" parent="35" name="type">
+      <Position>3</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <index id="271" parent="35" name="tst_test_type_fk0">
+      <ColNames>test_id</ColNames>
+    </index>
+    <index id="272" parent="35" name="type">
+      <ColNames>type</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="273" parent="35" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="274" parent="35" name="type">
+      <ColNames>type</ColNames>
+      <UnderlyingIndexName>type</UnderlyingIndexName>
+    </key>
+    <foreign-key id="275" parent="35" name="tst_test_type_fk0">
+      <ColNames>test_id</ColNames>
+      <RefSchemaName>futoria</RefSchemaName>
+      <RefTableName>tst_test</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+  </database-model>
+</dataSource>
