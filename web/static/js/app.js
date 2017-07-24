@@ -1,9 +1,10 @@
-var app = angular.module('BlankApp', ['ngMaterial', 'ngRoute']);
+var app = angular.module('BlankApp', ['ngMaterial', 'ngRoute', 'md.data.table']);
 
 app.config(function ($mdThemingProvider) {
     $mdThemingProvider
         .theme('default')
-        .primaryPalette('blue-grey');
+        .primaryPalette('blue-grey')
+        .accentPalette('orange');
 });
 
 app.config(function ($mdIconProvider) {

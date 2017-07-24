@@ -117,7 +117,25 @@
     });
 
     app.controller('TXListController', function ($scope) {
-        $scope.transactions = ${transactions};
+        $scope.selected = [];
+
+        $scope.query = {
+            order: 'idToLower',
+            limit: 1,
+            page: 2
+        };
+
+        $scope.onSelect = function (item) {
+        };
+
+        $scope.onDeselect = function (item) {
+        };
+
+        $scope.getTransactions = function () {
+            $scope.transactions = ${transactions};
+        };
+
+        $scope.getTransactions();
     })
 </script>
 
