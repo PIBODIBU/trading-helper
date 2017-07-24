@@ -1,46 +1,47 @@
-'use strict';
+var app = angular.module('BlankApp', ['ngMaterial', 'ngRoute']);
 
-var app = angular.module('BaseApp',
-    ['ngMaterial', 'ngMessages', 'material.svgAssetsCache', 'ngAnimate']);
-
-app.config(function ($mdIconProvider, $mdThemingProvider) {
-    $mdIconProvider.defaultIconSet('/resources/icons/mdi.svg');
-
-    $mdThemingProvider.definePalette('white', {
-        '50': 'ffffff',
-        '100': 'ffffff',
-        '200': 'ffffff',
-        '300': 'ffffff',
-        '400': 'ffffff',
-        '500': 'ffffff',
-        '600': 'ffffff',
-        '700': 'ffffff',
-        '800': 'ffffff',
-        '900': 'ffffff',
-        'A100': 'ffffff',
-        'A200': 'ffffff',
-        'A400': 'ffffff',
-        'A700': 'ffffff',
-        'contrastDefaultColor': 'dark'
-    });
-
-    $mdThemingProvider.theme('default')
-        .primaryPalette('white')
-        .accentPalette('blue')
-        .backgroundPalette('grey',
-            {
-                'default': '100'
-            });
-
-    $mdThemingProvider.enableBrowserColor({
-        theme: 'default', // Default is 'default'
-        palette: 'accent', // Default is 'primary', any basic material palette and extended palettes are available
-        hue: '800' // Default is '800'
-    });
+app.config(function ($mdThemingProvider) {
+    $mdThemingProvider
+        .theme('default')
+        .primaryPalette('blue-grey');
 });
 
-app.controller('StatisticsController', ['$scope', function ($scope) {
-}]);
+app.config(function ($mdIconProvider) {
+    $mdIconProvider
+        .defaultIconSet('/resources/icons/mdi.svg')
+});
 
-app.controller('SearchBarController', function ($scope) {
+app.config(function ($routeProvider) {
+    $routeProvider
+        .when("/btc", {
+            templateUrl: "/resources/template/stock_btc.tmpl.html"
+        })
+        .when("/tx_list", {
+            templateUrl: "/resources/template/tx_list.tmpl.html"
+        })
+        .when("/tx_add", {
+            templateUrl: "/resources/template/tx_add.tmpl.html"
+        })
+        .otherwise({
+            templateUrl: '/resources/template/stock_btc.tmpl.html'
+        })
+});
+
+app.directive('capitalize', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, modelCtrl) {
+            var capitalize = function (inputValue) {
+                if (inputValue === undefined) inputValue = '';
+                var capitalized = inputValue.toUpperCase();
+                if (capitalized !== inputValue) {
+                    modelCtrl.$setViewValue(capitalized);
+                    modelCtrl.$render();
+                }
+                return capitalized;
+            };
+            modelCtrl.$parsers.push(capitalize);
+            capitalize(scope[attrs.ngModel]); // capitalize initial value
+        }
+    };
 });

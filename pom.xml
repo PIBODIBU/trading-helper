@@ -176,5 +176,24 @@
             <artifactId>spring-security-taglibs</artifactId>
             <version>4.2.2.RELEASE</version>
         </dependency>
+
+        <!--XChange-->
+        <dependency>
+            <groupId>org.knowm.xchange</groupId>
+            <artifactId>xchange-core</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.knowm.xchange</groupId>
+            <artifactId>xchange-poloniex</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.knowm.xchange</groupId>
+            <artifactId>xchange-btce</artifactId>
+            <version>4.2.0</version>
+        </dependency>
     </dependencies>
 </project>

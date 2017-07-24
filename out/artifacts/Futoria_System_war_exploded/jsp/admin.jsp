@@ -9,8 +9,8 @@
 
 <html>
 <head>
-    <jsp:include page="include/angular-lib.jsp"/>
-    <jsp:include page="include/angular-app.jsp"/>
+    <jsp:include page="jsp_include/angular-lib.jsp"/>
+    <jsp:include page="jsp_include/angular-app.jsp"/>
 </head>
 
 <style>

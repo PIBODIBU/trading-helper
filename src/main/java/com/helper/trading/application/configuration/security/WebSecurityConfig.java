@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                 .antMatchers("/me/**").access("isAuthenticated()")
-                .antMatchers("/me/tests/**").access("hasRole('ROLE_UNI_PROFESSOR')")
+                .antMatchers("/tx/**").access("isAuthenticated()")
                 .and()
                 .formLogin().defaultSuccessUrl("/me/").loginPage("/login").failureUrl("/login?error")
                 .usernameParameter("username").passwordParameter("password")

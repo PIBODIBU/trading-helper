@@ -17,15 +17,6 @@ public class MyPageController {
     private UserService userService;
     private Gson gson;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView myPage() {
-        ModelAndView modelAndView = new ModelAndView("my_page.jsp");
-
-        modelAndView.addObject("user", gson.toJson(securityService.getUserFromContext()));
-
-        return modelAndView;
-    }
-
     @Autowired
     public void setSecurityService(@Qualifier("SecurityService")
                                            SecurityService securityService) {
@@ -38,7 +29,16 @@ public class MyPageController {
     }
 
     @Autowired
-    public void setGson(@Qualifier("FutoriaGson") Gson gson) {
+    public void setGson(@Qualifier("Gson") Gson gson) {
         this.gson = gson;
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView myPage() {
+        ModelAndView modelAndView = new ModelAndView("my_page.jsp");
+
+        modelAndView.addObject("user", gson.toJson(securityService.getUserFromContext()));
+
+        return modelAndView;
     }
 }

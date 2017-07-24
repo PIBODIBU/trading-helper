@@ -1,0 +1,14 @@
+<md-content ng-controller="TXListController">
+    <p ng-repeat="tx in transactions">
+        <b>Id</b> {{tx.id}} <br/>
+        <b>Total</b> {{tx.total}} <br/>
+        <b>Trade price</b> {{tx.tradePrice}} <br/>
+        <b>Quantity</b> {{tx.quantity}} <br/>
+        <b>Date</b> {{tx.date}} <br/>
+        <b>Notes</b> {{tx.notes}} <br/>
+        <b>User</b> {{tx.user.firstName}} {{tx.user.lastName}}<br/>
+        <b>Stock</b> {{tx.stock.name}} <br/>
+        <b>Currency pair</b> {{tx.currencyPair.name}} <br/>
+        <b>Transaction type</b> {{tx.txType.name}} <br/>
+    </p>
+</md-content>
