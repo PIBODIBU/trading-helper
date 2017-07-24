@@ -15,6 +15,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular-material-data-table": "^0.10.10"
+    "angular-material-data-table": "^0.10.10",
+    "angular-masonry": "^0.17.0",
+    "angulargrid": "^0.6.5"
   }
 }

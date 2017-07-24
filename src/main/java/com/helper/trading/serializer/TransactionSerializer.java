@@ -1,9 +1,6 @@
 package com.helper.trading.serializer;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import com.helper.trading.model.CurrencyPair;
 import com.helper.trading.model.Transaction;
 
@@ -36,6 +33,7 @@ public class TransactionSerializer implements JsonSerializer<Transaction> {
         jsonObject.add("stock", stockSerializer.serialize(transaction.getStock(), type, jsonSerializationContext));
         jsonObject.add("currencyPair", currencyPairSerializer.serialize(transaction.getCurrencyPair(), type, jsonSerializationContext));
         jsonObject.add("txType", txTypeSerializer.serialize(transaction.getTxType(), type, jsonSerializationContext));
+        jsonObject.addProperty("currencyPairInfo", new GsonBuilder().create().toJson(transaction.getCurrencyPairInfo()));
 
         return jsonObject;
     }

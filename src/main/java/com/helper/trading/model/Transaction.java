@@ -1,6 +1,7 @@
 package com.helper.trading.model;
 
 import com.helper.trading.model.user.User;
+import com.helper.trading.util.TxTypeUtil;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,6 +32,9 @@ public class Transaction {
     @Column(name = "total", nullable = false)
     private Double total;
 
+    @Transient
+    private org.knowm.xchange.currency.CurrencyPair currencyPairInfo;
+
     @Column(name = "trade_price", nullable = false)
     private Double tradePrice;
 
@@ -41,7 +45,7 @@ public class Transaction {
     @Temporal(TemporalType.TIMESTAMP)
     private Date tradeDate;
 
-    @Column(name = "notes", length = 500, nullable = false)
+    @Column(name = "notes", length = 500, nullable = true)
     private String notes;
 
     public Long getId() {
@@ -90,6 +94,17 @@ public class Transaction {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    public org.knowm.xchange.currency.CurrencyPair getCurrencyPairInfo() {
+        if (currencyPairInfo == null)
+            return new org.knowm.xchange.currency.CurrencyPair(getCurrencyPair().getName());
+
+        return currencyPairInfo;
+    }
+
+    public void setCurrencyPairInfo(org.knowm.xchange.currency.CurrencyPair currencyPairInfo) {
+        this.currencyPairInfo = currencyPairInfo;
     }
 
     public Double getTradePrice() {

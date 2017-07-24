@@ -1,6 +1,32 @@
-var app = angular.module('BlankApp', ['ngMaterial', 'ngRoute', 'md.data.table']);
+var app = angular.module('BlankApp', ['ngMaterial', 'ngRoute', 'md.data.table', 'angularGrid']);
 
 app.config(function ($mdThemingProvider) {
+    $mdThemingProvider.definePalette('whitePalette', {
+        '50': 'ffffff',
+        '100': 'ffffff',
+        '200': 'ffffff',
+        '300': 'ffffff',
+        '400': 'ffffff',
+        '500': 'ffffff',
+        '600': 'ffffff',
+        '700': 'ffffff',
+        '800': 'ffffff',
+        '900': 'ffffff',
+        'A100': 'ffffff',
+        'A200': 'ffffff',
+        'A400': 'ffffff',
+        'A700': 'ffffff',
+        'contrastDefaultColor': 'dark',    // whether, by default, text (contrast)
+        // on this palette should be dark or light
+
+        'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+            '200', '300', '400', 'A100'],
+        'contrastLightColors': undefined    // could also specify this if default was 'dark'
+    });
+    $mdThemingProvider.theme('white')
+        .primaryPalette('whitePalette')
+        .backgroundPalette('whitePalette');
+
     $mdThemingProvider
         .theme('default')
         .primaryPalette('blue-grey')

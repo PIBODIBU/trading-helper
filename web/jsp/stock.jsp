@@ -116,13 +116,17 @@
         </c:if>
     });
 
-    app.controller('TXListController', function ($scope) {
+    app.controller('TXListController', function ($scope, $mdEditDialog) {
         $scope.selected = [];
 
+        $scope.settings = {
+            layout: 'cards'
+        };
+
         $scope.query = {
-            order: 'idToLower',
-            limit: 1,
-            page: 2
+            order: '-date',
+            limit: 5,
+            page: 1
         };
 
         $scope.onSelect = function (item) {
@@ -133,6 +137,35 @@
 
         $scope.getTransactions = function () {
             $scope.transactions = ${transactions};
+
+            for (var i = 0; i < $scope.transactions.length; i++) {
+                $scope.transactions[i].currencyPairInfo = JSON.parse($scope.transactions[i].currencyPairInfo);
+            }
+        };
+
+        $scope.editNote = function (event, transaction) {
+            event.stopPropagation();
+
+            var promise = $mdEditDialog.large({
+                modelValue: transaction.notes,
+                placeholder: 'Add a note',
+                title: 'Edit note',
+                save: function (input) {
+                    transaction.notes = input.$modelValue;
+                },
+                targetEvent: event,
+                validators: {
+                    'md-maxlength': 500
+                }
+            });
+
+            promise.then(function (ctrl) {
+                var input = ctrl.getInput();
+
+                input.$viewChangeListeners.push(function () {
+                    input.$setValidity('test', input.$modelValue !== 'test');
+                });
+            });
         };
 
         $scope.getTransactions();
