@@ -33,36 +33,38 @@
             </div>
 
             <md-button class="md-icon-button" ng-mouseenter="$mdMenu.open()">
-                <md-icon md-menu-origin md-svg-icon="view-dashboard"></md-icon>
+                <md-icon md-menu-origin md-svg-icon="view-dashboard" style="fill: #757575"></md-icon>
             </md-button>
             <md-button class="md-icon-button" ng-mouseenter="$mdMenu.open()">
-                <md-icon md-menu-origin md-svg-icon="view-dashboard"></md-icon>
+                <md-icon md-menu-origin md-svg-icon="view-dashboard" style="fill: #757575"></md-icon>
             </md-button>
             <md-button class="md-icon-button" ng-mouseenter="$mdMenu.open()">
-                <md-icon md-menu-origin md-svg-icon="view-dashboard"></md-icon>
+                <md-icon md-menu-origin md-svg-icon="view-dashboard" style="fill: #757575"></md-icon>
             </md-button>
 
-            <md-menu md-position-mode="target-right target">
+            <md-menu md-position-mode="target-right target" md-theme="default">
                 <md-button class="md-icon-button" ng-click="$mdMenu.open()">
-                    <md-icon md-menu-origin md-svg-icon="view-dashboard"></md-icon>
+                    <md-icon md-menu-align-target md-svg-icon="application" style="fill: #757575"></md-icon>
                 </md-button>
 
-                <md-menu-content width="3" ng-mouseleave="$mdMenu.close()">
+                <md-menu-content width="3">
                     <md-menu-item>
                         <md-button ng-click="settings.layout = 'cards'">
                             <div layout="row" flex>
+                                <md-icon md-menu-align-target md-svg-icon="view-grid"></md-icon>
+                                <p flex>Cards</p>
                                 <md-icon md-menu-align-target md-svg-icon="check"
                                          ng-if="settings.layout == 'cards'"></md-icon>
-                                <p flex>Cards</p>
                             </div>
                         </md-button>
                     </md-menu-item>
                     <md-menu-item>
                         <md-button ng-click="settings.layout = 'table'">
                             <div layout="row" flex>
+                                <md-icon md-menu-align-target md-svg-icon="view-headline"></md-icon>
+                                <p flex>Table</p>
                                 <md-icon md-menu-align-target md-svg-icon="check"
                                          ng-if="settings.layout == 'table'"></md-icon>
-                                <p flex>Table</p>
                             </div>
                         </md-button>
                     </md-menu-item>
@@ -124,9 +126,9 @@
                          md-page-select></md-table-pagination>
 
     <ul class="dynamic-grid"
+        ng-if="settings.layout == 'cards'"
         angular-grid="transactions"
-        grid-no="2"
-        refresh-on-img-load="false">
+        grid-no="2">
         <li data-ng-repeat="tx in transactions | orderBy: -date"
             class="grid">
             <md-card>
@@ -140,6 +142,16 @@
                             <b>{{tx.txType.name}}</b>
                         </div>
                     </md-card-header-text>
+
+                    <div layout="column" layout-align="center center" ng-if="tx.total > 1000">
+                        <md-icon style="fill: #F44336" md-svg-icon="arrow-down-bold"></md-icon>
+                        <span class="md-caption" style="color: #F44336;">-3.48%</span>
+                    </div>
+
+                    <div layout="column" layout-align="center center" ng-if="tx.total <= 1000">
+                        <md-icon style="fill: #4CAF50" md-svg-icon="arrow-up-bold"></md-icon>
+                        <span class="md-caption" style="color: #4CAF50;">4.54%</span>
+                    </div>
                 </md-card-header>
 
                 <md-card-content layout="row" layout-padding layout-wrap>
@@ -163,6 +175,11 @@
                         <span class="md-caption">Total</span>
                         <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.total}} {{tx.currencyPairInfo.counter.code}}</span></b>
                         <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.total}} {{tx.currencyPairInfo.base.code}}</span></b>
+                    </div>
+
+                    <div flex="100" layout="column">
+                        <span class="md-caption">Transaction date & time</span>
+                        <span class="md-headline">{{tx.date}}</span>
                     </div>
 
                     <div flex="100" ng-if="tx.notes" layout="column">
@@ -173,53 +190,4 @@
             </md-card>
         </li>
     </ul>
-
-    <!--<md-content ng-if="settings.layout == 'cards'"
-                layout-wrap
-                layout="row">
-        <div flex="50" ng-repeat="tx in transactions">
-            <md-card>
-                <md-card-header>
-                    <md-card-header-text>
-                        <span class="md-title">{{tx.currencyPair.name}}</span>
-                        <div class="md-subhead" ng-if="tx.txType.name == 'Buy'" ng-style="{'color': '#4CAF50'}">
-                            <b>{{tx.txType.name}}</b>
-                        </div>
-                        <div class="md-subhead" ng-if="tx.txType.name == 'Sell'" ng-style="{'color': '#F44336'}">
-                            <b>{{tx.txType.name}}</b>
-                        </div>
-                    </md-card-header-text>
-                </md-card-header>
-
-                <md-card-content layout="row" layout-padding layout-wrap>
-                    <div layout="column">
-                        <span class="md-caption">Stock</span>
-                        <b><span class="md-headline">{{tx.stock.name}}</span></b>
-                    </div>
-
-                    <div layout="column">
-                        <span class="md-caption">Quantity</span>
-                        <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.quantity}} {{tx.currencyPairInfo.base.code}}</span></b>
-                        <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.quantity}} {{tx.currencyPairInfo.counter.code}}</span></b>
-                    </div>
-
-                    <div layout="column">
-                        <span class="md-caption">Trade price</span>
-                        <b><span class="md-headline">{{tx.tradePrice}} {{tx.currencyPairInfo.counter.code}}</span></b>
-                    </div>
-
-                    <div layout="column">
-                        <span class="md-caption">Total</span>
-                        <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.total}} {{tx.currencyPairInfo.counter.code}}</span></b>
-                        <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.total}} {{tx.currencyPairInfo.base.code}}</span></b>
-                    </div>
-
-                    <div flex="100" ng-if="tx.notes" layout="column">
-                        <b><span>Notes</span></b>
-                        <span class="md-body-1">{{tx.notes}}</span>
-                    </div>
-                </md-card-content>
-            </md-card>
-        </div>
-    </md-content>-->
 </md-content>

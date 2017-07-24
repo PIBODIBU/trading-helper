@@ -38,39 +38,81 @@
                         ng-controller="LoadingController"
                         ng-show="loading"></md-progress-linear>
 
-    <section layout="row"
-             flex>
+    <md-content layout="row"
+                flex>
         <md-sidenav class="md-sidenav-left"
                     md-component-id="left"
                     md-is-locked-open="$mdMedia('gt-md')"
-                    style="background: transparent">
-            <md-card md-whiteframe="2"
-                     ng-controller="MenuLeftController">
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Navigation</span>
-                    </md-card-title-text>
-                </md-card-title>
+                    style="background: transparent; overflow: hidden; height: 100%">
+            <div ng-controller="MenuLeftController">
+                <md-card md-whiteframe="2">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Navigation</span>
+                        </md-card-title-text>
+                    </md-card-title>
 
-                <md-card-content>
-                    <div ng-repeat="item in menuItems"
-                         flex
-                         layout="column">
-                        <md-button style="text-align: left; margin: 0"
-                                   href="{{item.link}}"
-                                   ng-click="loading = true; toggleLeftSideNav()">
-                            {{item.title}}
-                        </md-button>
-                    </div>
-                </md-card-content>
-            </md-card>
+                    <md-card-content>
+                        <div ng-repeat="item in menuItems"
+                             flex
+                             layout="column">
+                            <md-button style="text-align: left; margin: 0"
+                                       href="{{item.link}}"
+                                       ng-click="loading = true; toggleLeftSideNav()">
+                                {{item.title}}
+                            </md-button>
+                        </div>
+                    </md-card-content>
+                </md-card>
+
+                <md-card md-whiteframe="2">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Stocks</span>
+                        </md-card-title-text>
+                    </md-card-title>
+
+                    <md-card-content>
+                        <div ng-repeat="item in stocks"
+                             flex
+                             layout="column">
+                            <md-button style="text-align: left; margin: 0"
+                                       href="{{item.link}}"
+                                       ng-click="loading = true; toggleLeftSideNav()">
+                                {{item.name}}
+                            </md-button>
+                        </div>
+                    </md-card-content>
+                </md-card>
+
+                <md-card md-whiteframe="2">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Currency pairs</span>
+                        </md-card-title-text>
+                    </md-card-title>
+
+                    <md-card-content>
+                        <div ng-repeat="item in currPairs"
+                             flex
+                             layout="column">
+                            <md-button style="text-align: left; margin: 0"
+                                       href="{{item.link}}"
+                                       ng-click="loading = true; toggleLeftSideNav()">
+                                {{item.name}}
+                                {{item.ticker.last}}
+                            </md-button>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
         </md-sidenav>
 
-        <md-content ng-controller="ViewCtrl"
-                    flex>
+        <div ng-controller="ViewCtrl"
+             flex>
             <ng-view></ng-view>
-        </md-content>
-    </section>
+        </div>
+    </md-content>
 </div>
 
 <script type="text/javascript">
@@ -101,8 +143,40 @@
         $http.get("/resources/data/menu.json")
             .success(function (data) {
                 $scope.menuItems = data;
-            })
-            .finally(function () {
+            });
+
+        $http.get("/resources/data/currency_pairs.json", {dataType: 'jsonp'})
+            .success(function (data) {
+                $scope.currPairs = data;
+                $scope.tickers = [];
+                var found;
+
+                $scope.currPairs.forEach(function (pair) {
+                    found = false;
+
+                    $scope.tickers.forEach(function (ticker) {
+                        console.log(pair.name, ticker.currencyPair);
+
+                        if (pair.name === ticker.currencyPair) {
+                            pair.ticker = ticker;
+                            found = true;
+                            return;
+                        }
+                    });
+
+                    if (!found)
+                        $http.get("/api/ticker?currency_pair=" + pair.name)
+                            .success(function (data) {
+                                pair.ticker = data;
+                                $scope.tickers.push(data);
+                            });
+
+                });
+            });
+
+        $http.get("/resources/data/stocks.json")
+            .success(function (data) {
+                $scope.stocks = data;
             });
     });
 

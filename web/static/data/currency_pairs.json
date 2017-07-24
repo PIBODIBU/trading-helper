@@ -1,0 +1,35 @@
+[
+  {
+    "name": "BTC/USD",
+    "link": "",
+    "code": "btc_usd",
+    "icon_base": "currency-btc",
+    "icon_counter": "currency-usd"
+  },
+  {
+    "name": "LTC/BTC",
+    "link": "",
+    "code": "ltc_btc",
+    "icon_base": "coin",
+    "icon_counter": "currency-btc"
+  },
+  {
+    "name": "ETH/USD",
+    "link": "",
+    "code": "eth_usd",
+    "icon_base": "coin",
+    "icon_counter": "currency-usd"
+  },
+  {
+    "name": "XRP/BTC",
+    "link": "",
+    "icon_base": "coin",
+    "icon_counter": "currency-btc"
+  },
+  {
+    "name": "STRAT/BTC",
+    "link": "",
+    "icon_base": "coin",
+    "icon_counter": "currency-btc"
+  }
+]
