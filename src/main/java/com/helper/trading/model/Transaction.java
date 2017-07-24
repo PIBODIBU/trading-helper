@@ -29,13 +29,13 @@ public class Transaction {
     private TxType txType;
 
     @Column(name = "total", nullable = false)
-    private Long total;
+    private Double total;
 
     @Column(name = "trade_price", nullable = false)
-    private Long tradePrice;
+    private Double tradePrice;
 
     @Column(name = "quantity", nullable = false)
-    private Long quantity;
+    private Double quantity;
 
     @Column(name = "trade_date", columnDefinition = "CURRENT_TIMESTAMP", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
@@ -84,27 +84,27 @@ public class Transaction {
         this.txType = txType;
     }
 
-    public Long getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(Long total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
-    public Long getTradePrice() {
+    public Double getTradePrice() {
         return tradePrice;
     }
 
-    public void setTradePrice(Long tradePrice) {
+    public void setTradePrice(Double tradePrice) {
         this.tradePrice = tradePrice;
     }
 
-    public Long getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Long quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 

@@ -6,11 +6,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Angular Material style sheet -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.css">
-    <!-- Material Design icons-->
-    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/1.9.32/css/materialdesignicons.min.css">
-
     <jsp:include page="jsp_include/angular-lib.jsp"/>
     <jsp:include page="jsp_include/angular-app.jsp"/>
 </head>

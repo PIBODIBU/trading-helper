@@ -1,4 +1,17 @@
 <md-content ng-controller="TXListController">
+    <md-list class="md-dense" flex>
+        <md-list-item class="md-3-line md-long-text"
+                      ng-repeat="tx in transactions">
+            <div class="md-list-item-text">
+                <h3>{{tx.total}}</h3>
+                <p>{{tx.notes}}</p>
+            </div>
+
+            <md-icon md-svg-icon="arrow-down-bold" ng-if="tx.txType.name == 'Sell'"></md-icon>
+            <md-icon md-svg-icon="arrow-up-bold" ng-if="tx.txType.name == 'Buy'"></md-icon>
+        </md-list-item>
+    </md-list>
+
     <p ng-repeat="tx in transactions">
         <b>Id</b> {{tx.id}} <br/>
         <b>Total</b> {{tx.total}} <br/>
