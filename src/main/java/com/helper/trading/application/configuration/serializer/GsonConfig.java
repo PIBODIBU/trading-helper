@@ -2,10 +2,7 @@ package com.helper.trading.application.configuration.serializer;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.helper.trading.model.CurrencyPair;
-import com.helper.trading.model.Stock;
-import com.helper.trading.model.Transaction;
-import com.helper.trading.model.TxType;
+import com.helper.trading.model.*;
 import com.helper.trading.model.security.Permission;
 import com.helper.trading.model.security.Role;
 import com.helper.trading.model.user.User;
@@ -29,6 +26,7 @@ public class GsonConfig {
                 .registerTypeHierarchyAdapter(Stock.class, new StockSerializer())
                 .registerTypeHierarchyAdapter(CurrencyPair.class, new CurrencyPairSerializer())
                 .registerTypeHierarchyAdapter(TxType.class, new TxTypeSerializer())
+                .registerTypeHierarchyAdapter(CurrencyRate.class, new CurrencyRateSerializer())
                 .create();
     }
 }

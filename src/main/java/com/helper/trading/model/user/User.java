@@ -50,14 +50,6 @@ public class User {
     )
     private Boolean isEnabled;
 
-    @OneToOne(
-            mappedBy = "user",
-            cascade = CascadeType.MERGE,
-            fetch = FetchType.EAGER,
-            orphanRemoval = true
-    )
-    private UserData userData;
-
     @ManyToMany(
             cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER
@@ -136,14 +128,6 @@ public class User {
 
     public void setEnabled(Boolean enabled) {
         isEnabled = enabled;
-    }
-
-    public UserData getUserData() {
-        return userData;
-    }
-
-    public void setUserData(UserData userData) {
-        this.userData = userData;
     }
 
     public Set<Role> getRoles() {

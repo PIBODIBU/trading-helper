@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Futoria-System" />
+        <module name="TradingHelper" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Futoria-System" target="1.8" />
+      <module name="TradingHelper" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -186,7 +186,7 @@
             <md-card>
                 <md-card-header>
                     <md-card-header-text>
-                        <span class="md-title">{{tx.currencyPair.name}}</span>
+                        <span class="md-title">{{tx.currencyPair.name}} ({{tx.stock.name}})</span>
                         <div class="md-subhead" ng-if="tx.txType.name == 'Buy'" ng-style="{'color': '#4CAF50'}">
                             <b>{{tx.txType.name}}</b>
                         </div>
@@ -195,35 +195,18 @@
                         </div>
                     </md-card-header-text>
 
-                    <div layout="column" layout-align="center center" ng-if="tx.tradePrice > tx.ticker.last">
+                    <div layout="column" layout-align="center center" ng-if="tx.tradePrice > tx.ticker.rate">
                         <md-icon style="fill: #F44336" md-svg-icon="arrow-down-bold"></md-icon>
-                        <span class="md-caption" style="color: #F44336;">-{{tx.tradePrice / tx.ticker.last | number: 2}}%</span>
+                        <span class="md-caption" style="color: #F44336;">-{{tx.tradePrice / tx.ticker.rate | number: 2}}%</span>
                     </div>
 
-                    <div layout="column" layout-align="center center" ng-if="tx.tradePrice < tx.ticker.last">
+                    <div layout="column" layout-align="center center" ng-if="tx.tradePrice < tx.ticker.rate">
                         <md-icon style="fill: #4CAF50" md-svg-icon="arrow-up-bold"></md-icon>
-                        <span class="md-caption" style="color: #4CAF50;">{{100-(tx.tradePrice*100/tx.ticker.last) | number: 2}}%</span>
+                        <span class="md-caption" style="color: #4CAF50;">{{100-(tx.tradePrice*100/tx.ticker.rate) | number: 2}}%</span>
                     </div>
                 </md-card-header>
 
                 <md-card-content layout="row" layout-padding layout-wrap>
-                    <div layout="column" flex="33">
-                        <span class="md-caption">Stock</span>
-                        <b><span class="md-headline">{{tx.stock.name}}</span></b>
-                    </div>
-
-                    <div layout="column" flex="33">
-                        <span class="md-caption">Quantity</span>
-                        <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.quantity}} {{tx.currencyPairInfo.base.code}}</span></b>
-                        <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.quantity}} {{tx.currencyPairInfo.counter.code}}</span></b>
-                    </div>
-
-                    <div layout="column" flex="33">
-                        <span class="md-caption">Total</span>
-                        <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.total}} {{tx.currencyPairInfo.counter.code}}</span></b>
-                        <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.total}} {{tx.currencyPairInfo.base.code}}</span></b>
-                    </div>
-
                     <div layout="column" flex="50">
                         <span class="md-caption">Trade price</span>
                         <b><span class="md-headline">{{tx.tradePrice}} {{tx.currencyPairInfo.counter.code}}</span></b>
@@ -231,7 +214,19 @@
 
                     <div flex="50" layout="column">
                         <span class="md-caption">Current price</span>
-                        <span class="md-headline">{{tx.ticker.last}} {{tx.currencyPairInfo.counter.code}}</span>
+                        <span class="md-headline">{{tx.ticker.rate}} {{tx.currencyPairInfo.counter.code}}</span>
+                    </div>
+
+                    <div layout="column" flex="50">
+                        <span class="md-caption">Quantity</span>
+                        <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.quantity}} {{tx.currencyPairInfo.base.code}}</span></b>
+                        <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.quantity}} {{tx.currencyPairInfo.counter.code}}</span></b>
+                    </div>
+
+                    <div layout="column" flex="50">
+                        <span class="md-caption">Total</span>
+                        <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.total}} {{tx.currencyPairInfo.counter.code}}</span></b>
+                        <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.total}} {{tx.currencyPairInfo.base.code}}</span></b>
                     </div>
 
                     <div flex="100" layout="column">

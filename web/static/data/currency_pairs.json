@@ -1,35 +1,39 @@
 [
   {
     "name": "BTC/USD",
+    "stock": "Bitstamp",
+    "stock_id": 4,
+    "pair_id": 2,
     "link": "",
-    "code": "btc_usd",
-    "icon_base": "currency-btc",
-    "icon_counter": "currency-usd"
+    "counter": "USD",
+    "code": "btc_usd"
   },
   {
     "name": "LTC/BTC",
+    "stock": "Bitstamp",
+    "stock_id": 4,
+    "pair_id": 4,
     "link": "",
-    "code": "ltc_btc",
-    "icon_base": "coin",
-    "icon_counter": "currency-btc"
+    "counter": "BTC",
+    "code": "ltc_btc"
   },
   {
     "name": "ETH/USD",
+    "stock": "Bitstamp",
+    "stock_id": 4,
+    "pair_id": 5,
     "link": "",
-    "code": "eth_usd",
-    "icon_base": "coin",
-    "icon_counter": "currency-usd"
+    "counter": "USD",
+    "code": "eth_usd"
   },
   {
     "name": "XRP/BTC",
     "link": "",
-    "icon_base": "coin",
-    "icon_counter": "currency-btc"
+    "counter": "BTC"
   },
   {
     "name": "STRAT/BTC",
     "link": "",
-    "icon_base": "coin",
-    "icon_counter": "currency-btc"
+    "counter": "BTC"
   }
 ]

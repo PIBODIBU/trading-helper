@@ -104,11 +104,8 @@
                         <div ng-repeat="item in currPairs"
                              flex
                              layout="column">
-                            <md-button style="text-align: left; margin: 0"
-                                       href="{{item.link}}"
-                                       ng-click="loading = true; toggleLeftSideNav()">
-                                {{item.name}}
-                                {{item.ticker.last}}
+                            <md-button style="text-align: left; margin: 0">
+                                {{item.name}} - {{item.ticker.rate}} {{item.counter}} ({{item.stock}})
                             </md-button>
                         </div>
                     </md-card-content>
@@ -163,8 +160,6 @@
                     found = false;
 
                     $rootScope.tickers.forEach(function (ticker) {
-                        console.log(pair.name, ticker.currencyPair);
-
                         if (pair.name === ticker.currencyPair) {
                             pair.ticker = ticker;
                             found = true;
@@ -173,7 +168,7 @@
                     });
 
                     if (!found)
-                        $http.get("/api/ticker?currency_pair=" + pair.name)
+                        $http.get("/api/ticker?currency_pair_id=" + pair.pair_id + '&stock_id=' + pair.stock_id)
                             .success(function (data) {
                                 pair.ticker = data;
                                 $rootScope.tickers.push(data);
@@ -248,7 +243,7 @@
                 });
 
                 if (!found)
-                    $http.get("/api/ticker?currency_pair=" + tx.currencyPair.name)
+                    $http.get("/api/ticker?currency_pair_id=" + tx.currencyPair.id + '&stock_id=' + tx.stock.id)
                         .success(function (data) {
                             tx.ticker = data;
                             $rootScope.tickers.push(data);

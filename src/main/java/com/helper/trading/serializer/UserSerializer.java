@@ -44,13 +44,13 @@ public class UserSerializer implements JsonSerializer<User> {
         object.addProperty("password", src.getPassword());
         object.addProperty("isEnabled", src.getEnabled());
 
-        try {
+        /*try {
             object.add("userData", userDataSerializer.serialize(src.getUserData(), typeOfSrc, context));
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
+        }*/
 
-        try {
+        /*try {
             for (Role role : src.getRoles()) {
                 roles.add(roleSerializer.serialize(role, typeOfSrc, context));
             }
@@ -58,7 +58,7 @@ public class UserSerializer implements JsonSerializer<User> {
             ex.printStackTrace();
         } finally {
             object.add("roles", roles);
-        }
+        }*/
 
         return object;
     }

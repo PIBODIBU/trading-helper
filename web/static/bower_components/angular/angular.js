@@ -8620,7 +8620,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
               errors.push(e);
             }
           }
-          // Reset the queue to trigger a new schedule next time there is a change
+          // Reset the queue to trigger a new com.helper.trading.schedule next time there is a change
           onChangesQueue = undefined;
           if (errors.length) {
             throw errors;
@@ -10672,7 +10672,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
 
       function triggerOnChangesHook() {
         destination.$onChanges(changes);
-        // Now clear the changes so that we schedule onChanges when more changes arrive
+        // Now clear the changes so that we com.helper.trading.schedule onChanges when more changes arrive
         changes = undefined;
       }
 
@@ -11475,7 +11475,7 @@ function $HttpProvider() {
    *
    * Defaults to false. If no value is specified, returns the current configured value.
    *
-   * @param {boolean=} value If true, when requests are loaded, they will schedule a deferred
+   * @param {boolean=} value If true, when requests are loaded, they will com.helper.trading.schedule a deferred
    *    "apply" on the next tick, giving time for subsequent requests in a roughly ~10ms window
    *    to load and share the same digest cycle.
    *
@@ -18404,7 +18404,7 @@ function $RootScopeProvider() {
        */
       $evalAsync: function(expr, locals) {
         // if we are outside of an $digest loop and this is the first time we are scheduling async
-        // task also schedule async auto-flush
+        // task also com.helper.trading.schedule async auto-flush
         if (!$rootScope.$$phase && !asyncQueue.length) {
           $browser.defer(function() {
             if (asyncQueue.length) {
