@@ -9,6 +9,13 @@
     <jsp:include page="jsp_include/angular-lib.jsp"/>
     <jsp:include page="jsp_include/angular-app.jsp"/>
 </head>
+
+<style>
+    .hiddenOverflow {
+        overflow: hidden;
+    }
+</style>
+
 <body ng-app="BlankApp"
       ng-cloak
       layout="row">
@@ -43,7 +50,8 @@
         <md-sidenav class="md-sidenav-left"
                     md-component-id="left"
                     md-is-locked-open="$mdMedia('gt-md')"
-                    style="background: transparent; overflow: hidden; height: 100%">
+                    ng-style="{hiddenOverflow: $mdMedia('gt-md')}"
+                    style="background: transparent; height: 100%">
             <div ng-controller="MenuLeftController">
                 <md-card md-whiteframe="2">
                     <md-card-title>
@@ -148,13 +156,13 @@
         $http.get("/resources/data/currency_pairs.json", {dataType: 'jsonp'})
             .success(function (data) {
                 $scope.currPairs = data;
-                $scope.tickers = [];
+                $rootScope.tickers = [];
                 var found;
 
                 $scope.currPairs.forEach(function (pair) {
                     found = false;
 
-                    $scope.tickers.forEach(function (ticker) {
+                    $rootScope.tickers.forEach(function (ticker) {
                         console.log(pair.name, ticker.currencyPair);
 
                         if (pair.name === ticker.currencyPair) {
@@ -168,7 +176,7 @@
                         $http.get("/api/ticker?currency_pair=" + pair.name)
                             .success(function (data) {
                                 pair.ticker = data;
-                                $scope.tickers.push(data);
+                                $rootScope.tickers.push(data);
                             });
 
                 });
@@ -190,7 +198,7 @@
         </c:if>
     });
 
-    app.controller('TXListController', function ($scope, $mdEditDialog) {
+    app.controller('TXListController', function ($scope, $rootScope, $mdEditDialog, $http, $route, cookies) {
         $scope.selected = [];
 
         $scope.settings = {
@@ -203,6 +211,17 @@
             page: 1
         };
 
+        if (cookies.get('cardsOrder') !== undefined && $scope.settings === 'cards')
+            $scope.query.order = cookies.get('cardsOrder');
+
+        $scope.setCardsOrder = function (order) {
+            if (order === $scope.query.order)
+                order = '-' + order;
+
+            cookies.set('cardsOrder', order, 365);
+            $route.reload();
+        };
+
         $scope.onSelect = function (item) {
         };
 
@@ -211,10 +230,30 @@
 
         $scope.getTransactions = function () {
             $scope.transactions = ${transactions};
+            var found;
 
             for (var i = 0; i < $scope.transactions.length; i++) {
                 $scope.transactions[i].currencyPairInfo = JSON.parse($scope.transactions[i].currencyPairInfo);
             }
+
+            $scope.transactions.forEach(function (tx) {
+                found = false;
+
+                $rootScope.tickers.forEach(function (ticker) {
+                    if (tx.currencyPair.name === ticker.currencyPair) {
+                        tx.ticker = ticker;
+                        found = true;
+                        return;
+                    }
+                });
+
+                if (!found)
+                    $http.get("/api/ticker?currency_pair=" + tx.currencyPair.name)
+                        .success(function (data) {
+                            tx.ticker = data;
+                            $rootScope.tickers.push(data);
+                        });
+            })
         };
 
         $scope.editNote = function (event, transaction) {

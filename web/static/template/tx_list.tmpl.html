@@ -13,7 +13,7 @@
                 style="z-index: 1"
                 md-whiteframe="2">
         <div class="md-toolbar-tools">
-            <h2 layout-padding>Transactions</h2>
+            <h2 layout-padding ng-show="$mdMedia('gt-md')">Transactions</h2>
 
             <md-autocomplete
                     flex="50"
@@ -38,9 +38,62 @@
             <md-button class="md-icon-button" ng-mouseenter="$mdMenu.open()">
                 <md-icon md-menu-origin md-svg-icon="view-dashboard" style="fill: #757575"></md-icon>
             </md-button>
-            <md-button class="md-icon-button" ng-mouseenter="$mdMenu.open()">
-                <md-icon md-menu-origin md-svg-icon="view-dashboard" style="fill: #757575"></md-icon>
-            </md-button>
+
+            <md-menu md-position-mode="target-right target" md-theme="default">
+                <md-button class="md-icon-button" ng-click="$mdMenu.open()" ng-disabled="true">
+                    <md-icon md-menu-align-target md-svg-icon="sort-variant" style="fill: #757575"></md-icon>
+                </md-button>
+
+                <md-menu-content width="3">
+                    <md-menu-item>
+                        <md-button ng-click="setCardsOrder('stock.name')">
+                            <div layout="row" flex>
+                                <p flex>By stock name</p>
+                                <md-icon md-menu-align-target md-svg-icon="arrow-up"
+                                         ng-if="query.order == 'stock.name'"></md-icon>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="setCardsOrder('currencyPair.name')">
+                            <div layout="row" flex>
+                                <p flex>By currency pair name</p>
+                                <md-icon md-menu-align-target md-svg-icon="arrow-up"
+                                         ng-if="query.order == 'currencyPair.name'"></md-icon>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="setCardsOrder('txType.name')">
+                            <div layout="row" flex>
+                                <p flex>By type</p>
+                                <md-icon md-menu-align-target md-svg-icon="arrow-up"
+                                         ng-if="query.order == 'txType.name'"></md-icon>
+                                <md-icon md-menu-align-target md-svg-icon="arrow-up"
+                                         ng-if="query.order == '-txType.name'"></md-icon>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="setCardsOrder('tradePrice')">
+                            <div layout="row" flex>
+                                <p flex>By trade price</p>
+                                <md-icon md-menu-align-target md-svg-icon="arrow-up"
+                                         ng-if="query.order == 'tradePrice'"></md-icon>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="setCardsOrder('date')">
+                            <div layout="row" flex>
+                                <p flex>By date</p>
+                                <md-icon md-menu-align-target md-svg-icon="arrow-up"
+                                         ng-if="query.order == 'date'"></md-icon>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
 
             <md-menu md-position-mode="target-right target" md-theme="default">
                 <md-button class="md-icon-button" ng-click="$mdMenu.open()">
@@ -79,13 +132,13 @@
         <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
             <thead md-head md-order="query.order" md-on-reorder="getTransactions">
             <tr md-row>
+                <th md-column md-numeric md-order-by="date">Date</th>
+                <th md-column md-order-by="txType.name">Type</th>
                 <th md-column md-order-by="stock.name">Stock</th>
                 <th md-column md-order-by="currencyPair.name">Currency pair</th>
-                <th md-column md-order-by="txType.name">Type</th>
                 <th md-column md-numeric md-order-by="tradePrice">Trade price</th>
                 <th md-column md-numeric md-order-by="quantity">Quantity</th>
                 <th md-column md-numeric md-order-by="total"><span>Total</span></th>
-                <th md-column md-order-by="date">Date</th>
                 <th md-column>Notes</th>
             </tr>
             </thead>
@@ -97,18 +150,18 @@
                 md-on-select="onSelect"
                 md-on-deselect="onDeselect"
                 ng-repeat="tx in transactions | orderBy: query.order | limitTo: query.limit: (query.page - 1) * query.limit">
-                <td md-cell>{{tx.stock.name}}</td>
-                <td md-cell>{{tx.currencyPair.name}}</td>
+                <td md-cell>{{tx.date}}</td>
                 <td md-cell ng-if="tx.txType.name == 'Buy'" ng-style="{'color': '#4CAF50'}">
                     <b>{{tx.txType.name}}</b>
                 </td>
                 <td md-cell ng-if="tx.txType.name == 'Sell'" ng-style="{'color': '#F44336'}">
                     <b>{{tx.txType.name}}</b>
                 </td>
+                <td md-cell>{{tx.stock.name}}</td>
+                <td md-cell>{{tx.currencyPair.name}}</td>
                 <td md-cell>{{tx.tradePrice}}</td>
                 <td md-cell>{{tx.quantity}}</td>
                 <td md-cell>{{tx.total}}</td>
-                <td md-cell>{{tx.date}}</td>
                 <td md-cell ng-click="editNote($event, tx)" ng-class="{'md-placeholder': !tx.notes}">
                     {{tx.notes || 'Add a note'}}
                 </td>
@@ -127,9 +180,8 @@
 
     <ul class="dynamic-grid"
         ng-if="settings.layout == 'cards'"
-        angular-grid="transactions"
-        grid-no="2">
-        <li data-ng-repeat="tx in transactions | orderBy: -date"
+        angular-grid="transactions">
+        <li data-ng-repeat="tx in transactions | orderBy: '-date'"
             class="grid">
             <md-card>
                 <md-card-header>
@@ -143,38 +195,43 @@
                         </div>
                     </md-card-header-text>
 
-                    <div layout="column" layout-align="center center" ng-if="tx.total > 1000">
+                    <div layout="column" layout-align="center center" ng-if="tx.tradePrice > tx.ticker.last">
                         <md-icon style="fill: #F44336" md-svg-icon="arrow-down-bold"></md-icon>
-                        <span class="md-caption" style="color: #F44336;">-3.48%</span>
+                        <span class="md-caption" style="color: #F44336;">-{{tx.tradePrice / tx.ticker.last | number: 2}}%</span>
                     </div>
 
-                    <div layout="column" layout-align="center center" ng-if="tx.total <= 1000">
+                    <div layout="column" layout-align="center center" ng-if="tx.tradePrice < tx.ticker.last">
                         <md-icon style="fill: #4CAF50" md-svg-icon="arrow-up-bold"></md-icon>
-                        <span class="md-caption" style="color: #4CAF50;">4.54%</span>
+                        <span class="md-caption" style="color: #4CAF50;">{{100-(tx.tradePrice*100/tx.ticker.last) | number: 2}}%</span>
                     </div>
                 </md-card-header>
 
                 <md-card-content layout="row" layout-padding layout-wrap>
-                    <div layout="column">
+                    <div layout="column" flex="33">
                         <span class="md-caption">Stock</span>
                         <b><span class="md-headline">{{tx.stock.name}}</span></b>
                     </div>
 
-                    <div layout="column">
+                    <div layout="column" flex="33">
                         <span class="md-caption">Quantity</span>
                         <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.quantity}} {{tx.currencyPairInfo.base.code}}</span></b>
                         <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.quantity}} {{tx.currencyPairInfo.counter.code}}</span></b>
                     </div>
 
-                    <div layout="column">
+                    <div layout="column" flex="33">
+                        <span class="md-caption">Total</span>
+                        <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.total}} {{tx.currencyPairInfo.counter.code}}</span></b>
+                        <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.total}} {{tx.currencyPairInfo.base.code}}</span></b>
+                    </div>
+
+                    <div layout="column" flex="50">
                         <span class="md-caption">Trade price</span>
                         <b><span class="md-headline">{{tx.tradePrice}} {{tx.currencyPairInfo.counter.code}}</span></b>
                     </div>
 
-                    <div layout="column">
-                        <span class="md-caption">Total</span>
-                        <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.total}} {{tx.currencyPairInfo.counter.code}}</span></b>
-                        <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.total}} {{tx.currencyPairInfo.base.code}}</span></b>
+                    <div flex="50" layout="column">
+                        <span class="md-caption">Current price</span>
+                        <span class="md-headline">{{tx.ticker.last}} {{tx.currencyPairInfo.counter.code}}</span>
                     </div>
 
                     <div flex="100" layout="column">
