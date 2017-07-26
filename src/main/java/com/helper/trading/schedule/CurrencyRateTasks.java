@@ -6,6 +6,7 @@ import com.helper.trading.service.CurrencyRateService;
 import com.helper.trading.service.StockService;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
+import org.knowm.xchange.bitfinex.v1.BitfinexExchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.service.marketdata.MarketDataService;
@@ -21,11 +22,11 @@ import java.util.HashMap;
 import java.util.Set;
 
 @Component
-public class ScheduledTasks {
+public class CurrencyRateTasks {
     private CurrencyRateService rateService;
     private StockService stockService;
 
-    private static final Logger log = LoggerFactory.getLogger(ScheduledTasks.class);
+    private static final Logger log = LoggerFactory.getLogger(CurrencyRateTasks.class);
 
     @Autowired
     public void setRateService(CurrencyRateService rateService) {
@@ -37,8 +38,8 @@ public class ScheduledTasks {
         this.stockService = stockService;
     }
 
-    @Scheduled(fixedRate = 15000)
-    public void checkCurrencyRate() {
+    @Scheduled(fixedRate = 60000) // 1 minute
+    public void checkCurrencyRateDbRecords() {
         Set<CurrencyRate> currencyRates = rateService.getAll();
         Set<Stock> stocks = stockService.getAll();
         boolean alreadyExists;
@@ -65,8 +66,8 @@ public class ScheduledTasks {
         }
     }
 
-    //@Scheduled(fixedRate = 5000)
-    public void updateCurrencyRate() {
+    @Scheduled(fixedRate = 30000) // 30 sec
+    public void updateCurrencyRateRecords() {
         Set<CurrencyRate> rates = rateService.getAll();
         HashMap<String, Exchange> exchanges = new ManagedMap<>();
 

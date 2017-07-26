@@ -1,4 +1,4 @@
-package com.helper.trading.api;
+package com.helper.trading.api.v1;
 
 import com.google.gson.Gson;
 import com.helper.trading.model.CurrencyPair;
@@ -11,19 +11,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api")
-public class APICurrencyController {
+@RequestMapping("/api/v1/currency")
+public class APITickerController {
     private StockService stockService;
     private CurrencyPairService pairService;
     private CurrencyRateService rateService;
     private Gson gson;
 
-    private static final Logger log = LoggerFactory.getLogger(APICurrencyController.class);
+    private static final Logger log = LoggerFactory.getLogger(APITickerController.class);
 
     @Autowired
     public void setPairService(CurrencyPairService pairService) {

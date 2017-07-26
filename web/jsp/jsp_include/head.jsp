@@ -1,6 +1,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<script
+        src="http://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous"></script>
+
 <!-- Angular Material requires Angular.js Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
@@ -18,3 +23,17 @@
 <%--Google font & icon--%>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+
+<%--Main Angular app--%>
+<script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
+
+<%--Angular data table--%>
+<link href="${pageContext.request.contextPath}/resources/bower_components/angular-material-data-table/dist/md-data-table.min.css"
+      rel="stylesheet" type="text/css"/>
+<script src="${pageContext.request.contextPath}/resources/bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
+
+<%--Angular staggered grid--%>
+<script src="${pageContext.request.contextPath}/resources/bower_components/angulargrid/angulargrid.js"></script>
+
+<%--Date utils--%>
+<script src="${pageContext.request.contextPath}/resources/js/date.js"></script>

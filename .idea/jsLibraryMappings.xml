@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
-    <file url="file://$PROJECT_DIR$" libraries="{Node.js Core, angular, angular-animate, angular-aria, angular-material, angular-messages, angular-resource, angular-route, jquery, svg-assets-cache}" />
+    <file url="file://$PROJECT_DIR$" libraries="{Node.js Core, angular, angular-animate, angular-aria, angular-material, angular-messages, angular-resource, angular-route, angular-route-segment, jquery, jquery-3.2.1, svg-assets-cache}" />
   </component>
 </project>

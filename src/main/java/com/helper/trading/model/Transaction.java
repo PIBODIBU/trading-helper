@@ -1,7 +1,6 @@
 package com.helper.trading.model;
 
 import com.helper.trading.model.user.User;
-import com.helper.trading.util.TxTypeUtil;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -41,7 +40,7 @@ public class Transaction {
     @Column(name = "quantity", nullable = false)
     private Double quantity;
 
-    @Column(name = "trade_date", columnDefinition = "CURRENT_TIMESTAMP", nullable = true)
+    @Column(name = "trade_date", columnDefinition = "CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tradeDate;
 

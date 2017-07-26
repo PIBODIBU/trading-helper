@@ -201,5 +201,11 @@
             <artifactId>xchange-bitstamp</artifactId>
             <version>4.2.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.knowm.xchange</groupId>
+            <artifactId>xchange-bitfinex</artifactId>
+            <version>4.2.0</version>
+        </dependency>
     </dependencies>
 </project>

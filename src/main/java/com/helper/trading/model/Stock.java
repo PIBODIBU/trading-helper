@@ -16,9 +16,6 @@ public class Stock {
     @Column(name = "name_java", nullable = false, length = 100)
     private String nameJava;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "stock")
-    private Set<Transaction> transactions;
-
     @ManyToMany(
             cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER
@@ -57,14 +54,6 @@ public class Stock {
 
     public void setNameJava(String nameJava) {
         this.nameJava = nameJava;
-    }
-
-    public Set<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(Set<Transaction> transactions) {
-        this.transactions = transactions;
     }
 
     public Set<CurrencyPair> getCurrencyPairs() {

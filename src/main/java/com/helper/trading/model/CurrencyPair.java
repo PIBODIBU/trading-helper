@@ -18,12 +18,6 @@ public class CurrencyPair {
     )
     private String name;
 
-    @ManyToMany(
-            mappedBy = "currencyPairs",
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.MERGE
-    )
-    private Set<Stock> stocks;
 
     public Long getId() {
         return id;
@@ -39,14 +33,6 @@ public class CurrencyPair {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Stock> getStocks() {
-        return stocks;
-    }
-
-    public void setStocks(Set<Stock> stocks) {
-        this.stocks = stocks;
     }
 
     @Override

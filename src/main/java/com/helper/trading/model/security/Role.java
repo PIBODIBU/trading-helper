@@ -24,12 +24,12 @@ public class Role {
     )
     private String description;
 
-    @ManyToMany(
+    /*@ManyToMany(
             mappedBy = "roles",
             fetch = FetchType.EAGER,
             cascade = CascadeType.MERGE
     )
-    private Set<User> users;
+    private Set<User> users;*/
 
     @ManyToMany(
             fetch = FetchType.EAGER,
@@ -64,13 +64,13 @@ public class Role {
         this.roleName = roleName;
     }
 
-    public Set<User> getUsers() {
+    /*public Set<User> getUsers() {
         return users;
     }
 
     public void setUsers(Set<User> users) {
         this.users = users;
-    }
+    }*/
 
     public Set<Permission> getPermissions() {
         return permissions;

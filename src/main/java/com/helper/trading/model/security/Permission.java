@@ -22,12 +22,12 @@ public class Permission {
     )
     private String description;
 
-    @ManyToMany(
+    /*@ManyToMany(
             mappedBy = "permissions",
             fetch = FetchType.EAGER,
             cascade = CascadeType.MERGE
     )
-    private Set<Role> roles;
+    private Set<Role> roles;*/
 
     public Long getId() {
         return id;
@@ -45,13 +45,13 @@ public class Permission {
         this.name = name;
     }
 
-    public Set<Role> getRoles() {
+    /*public Set<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
+    }*/
 
     public String getDescription() {
         return description;

@@ -21,6 +21,6 @@ public class StockService {
     }
 
     public Set<Stock> getAll() {
-        return repository.findAll();
+        return repository.findAll() ;
     }
 }

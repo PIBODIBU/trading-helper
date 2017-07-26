@@ -1,5 +1,7 @@
 var app = angular.module('BlankApp', ['ngMaterial', 'ngRoute', 'md.data.table', 'angularGrid']);
 
+/*Configs*/
+// Themes
 app.config(function ($mdThemingProvider) {
     $mdThemingProvider.definePalette('whitePalette', {
         '50': 'ffffff',
@@ -33,27 +35,24 @@ app.config(function ($mdThemingProvider) {
         .accentPalette('orange');
 });
 
+// Icons
 app.config(function ($mdIconProvider) {
     $mdIconProvider
         .defaultIconSet('/resources/icons/mdi.svg')
 });
 
+// Routes
 app.config(function ($routeProvider) {
     $routeProvider
-        .when("/btc", {
-            templateUrl: "/resources/template/stock_btc.tmpl.html"
-        })
         .when("/tx_list", {
             templateUrl: "/resources/template/tx_list.tmpl.html"
         })
-        .when("/tx_add", {
-            templateUrl: "/resources/template/tx_add.tmpl.html"
-        })
         .otherwise({
-            templateUrl: '/resources/template/stock_btc.tmpl.html'
+            templateUrl: "/resources/template/tx_list.tmpl.html"
         })
 });
 
+/*Directives*/
 app.directive('capitalize', function () {
     return {
         require: 'ngModel',
@@ -73,6 +72,14 @@ app.directive('capitalize', function () {
     };
 });
 
+/*Filters*/
+app.filter('msToDate', function () {
+    return function (ms) {
+        return new Date(ms).customFormat("#DD#/#MM#/#YYYY# #hhhh#:#mm#:#ss#");
+    }
+});
+
+/*Services*/
 app.service('cookies', function () {
     this.set = function (name, value, days) {
         if (days) {
@@ -104,4 +111,76 @@ app.service('cookies', function () {
     this.delete = function (name) {
         set(name, "", -1);
     }
+});
+
+app.service('api', function () {
+    this.URL = '/api/v1/';
+
+    this.methods = {GET: 'GET', POST: 'POST'};
+
+    this.prepareParams = function (url, params, method) {
+        switch (method) {
+            case this.methods.GET:
+                url += '?';
+
+                params.forEach(function (param) {
+                    if (param !== null && param.name !== null && param.value !== null)
+                        url = url.concat(param.name).concat('=').concat(param.value).concat('&');
+                });
+        }
+
+        return url;
+    }
+});
+
+app.service('api_tx', function ($http, api, api_ticker) {
+    this.getPaged = function (page, size) {
+        return $http.get(api.prepareParams(api.URL + 'tx/list',
+            [
+                {name: 'page', value: page},
+                {name: 'size', value: size}
+            ],
+            api.methods.GET));
+    };
+
+    this.addTickers = function (txs) {
+        var found;
+        var tickers = [];
+
+        txs.forEach(function (tx) {
+                found = false;
+
+                tickers.forEach(function (ticker) {
+                    if (tx.currencyPair !== null && ticker !== null && tx.currencyPair.name === ticker.currencyPair) {
+                        tx.ticker = ticker;
+                        found = true;
+                        return;
+                    }
+                });
+
+                if (!found) {
+                    api_ticker.getByPairIdAndStockId(tx.currencyPair.id, tx.stock.id)
+                        .success(function (data) {
+                            tx.ticker = data;
+                            tickers.push(data);
+                        })
+                }
+            }
+        )
+    };
+
+    this.updateTickers = function (txs) {
+        this.addTickers(txs);
+    }
+});
+
+app.service('api_ticker', function ($http, api) {
+    this.getByPairIdAndStockId = function (pairId, stockId) {
+        return $http.get(api.prepareParams(api.URL + 'currency/ticker',
+            [
+                {name: 'currency_pair_id', value: pairId},
+                {name: 'stock_id', value: stockId}
+            ],
+            api.methods.GET));
+    };
 });

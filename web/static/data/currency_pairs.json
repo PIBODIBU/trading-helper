@@ -1,8 +1,8 @@
 [
   {
     "name": "BTC/USD",
-    "stock": "Bitstamp",
-    "stock_id": 4,
+    "stock": "Bitfinex",
+    "stock_id": 5,
     "pair_id": 2,
     "link": "",
     "counter": "USD",
@@ -10,8 +10,8 @@
   },
   {
     "name": "LTC/BTC",
-    "stock": "Bitstamp",
-    "stock_id": 4,
+    "stock": "Bitfinex",
+    "stock_id": 5,
     "pair_id": 4,
     "link": "",
     "counter": "BTC",
@@ -19,8 +19,8 @@
   },
   {
     "name": "ETH/USD",
-    "stock": "Bitstamp",
-    "stock_id": 4,
+    "stock": "Bitfinex",
+    "stock_id": 5,
     "pair_id": 5,
     "link": "",
     "counter": "USD",
