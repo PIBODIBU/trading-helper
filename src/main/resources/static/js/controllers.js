@@ -112,11 +112,11 @@ app.controller('TXListController', function ($scope, $rootScope, $mdEditDialog, 
         limit: 5,
         page: 0,
         limitAvailable: [
-            {name: '5', value: 5},
-            {name: '10', value: 10},
-            {name: '20', value: 20},
-            {name: '30', value: 30},
-            {name: 'All', value: -1}
+            {name: '5 items per page', value: 5},
+            {name: '10 items per page', value: 10},
+            {name: '20 items per page', value: 20},
+            {name: '30 items per page', value: 30},
+            {name: 'All items', value: -1}
         ],
         order: '-date',
         ticker: {

@@ -33,8 +33,11 @@
             </div>
 
             <md-input-container>
-                <label>Items per page</label>
-                <md-select ng-model="settings.limit" ng-change="setLimit()" md-theme="default">
+                <!--<label>Items per page</label>-->
+                <md-select ng-model="settings.limit"
+                           class="md-no-underline"
+                           ng-change="setLimit()"
+                           md-theme="default">
                     <md-option ng-value="item.value" ng-repeat="item in settings.limitAvailable">{{item.name}}
                     </md-option>
                 </md-select>
