@@ -9,23 +9,18 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <mvc:annotation-driven/>
+    <!--<mvc:annotation-driven/>-->
 
-    <mvc:annotation-driven>
-        <mvc:argument-resolvers>
-            <bean class="org.springframework.data.web.PageableHandlerMethodArgumentResolver"/>
-        </mvc:argument-resolvers>
-    </mvc:annotation-driven>
+    <!--<mvc:annotation-driven>-->
+        <!--<mvc:argument-resolvers>-->
+            <!--<bean class="org.springframework.data.web.PageableHandlerMethodArgumentResolver"/>-->
+        <!--</mvc:argument-resolvers>-->
+    <!--</mvc:annotation-driven>-->
 
-    <mvc:resources mapping="/resources/**" location="/static/"/>
+    <!--<mvc:resources mapping="/resources/**" location="/static/"/>-->
 
     <!-- BEANS -->
     <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/jsp/"/>
     </bean>-->
-
-    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/jsp/"/>
-    </bean>
 </beans>
