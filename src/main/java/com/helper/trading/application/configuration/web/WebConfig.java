@@ -2,6 +2,7 @@ package com.helper.trading.application.configuration.web;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 @EnableSpringDataWebSupport
+@Primary
 public class WebConfig extends WebMvcConfigurationSupport {
     /*@Bean
     public ViewResolver getViewResolver() {
