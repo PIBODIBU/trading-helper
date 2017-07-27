@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 @Component
-public class CurrencyRateTasks {
+public class CurrencyRateTasks { // TODO Enable
     private CurrencyRateService rateService;
     private StockService stockService;
 
