@@ -46,10 +46,10 @@ app.config(function ($routeProvider) {
     $routeProvider
         .when("/tx_list", {
             templateUrl: "/resources/template/tx_list.tmpl.html"
-        })
-        .otherwise({
+        });
+        /*.otherwise({
             templateUrl: "/resources/template/tx_list.tmpl.html"
-        })
+        })*/
 });
 
 /*Directives*/

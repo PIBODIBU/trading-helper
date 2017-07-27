@@ -144,7 +144,7 @@
         <div ng-switch-when="cards">
             <div class="dynamic-grid"
                  ag-id="cards"
-                 refresh-on-img-load="false"
+                 ag-refresh-on-img-load="true"
                  angular-grid="txs">
                 <div data-ng-repeat="tx in txs | orderBy: settings.order"
                      class="grid">

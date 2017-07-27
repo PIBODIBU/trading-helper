@@ -22,14 +22,23 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic"/>
 
-    <script th:src="@{https://trading-helper.herokuapp.com/resources/js/app.js}"></script>
+    <!--<script th:src="@{https://trading-helper.herokuapp.com/resources/js/app.js}"></script>
     <script th:src="@{https://trading-helper.herokuapp.com/resources/js/controllers.js}"></script>
     <link th:href="@{https://trading-helper.herokuapp.com/resources/bower_components/angular-material-data-table/dist/md-data-table.min.css}"
           rel="stylesheet"
           type="text/css"/>
     <script th:src="@{https://trading-helper.herokuapp.com/resources/bower_components/angular-material-data-table/dist/md-data-table.min.js}"></script>
     <script th:src="@{https://trading-helper.herokuapp.com/resources/bower_components/angulargrid/angulargrid.js}"></script>
-    <script th:src="@{https://trading-helper.herokuapp.com/resources/js/date.js}"></script>
+    <script th:src="@{https://trading-helper.herokuapp.com/resources/js/date.js}"></script>-->
+
+    <script th:src="@{/resources/js/app.js}"></script>
+    <script th:src="@{/resources/js/controllers.js}"></script>
+    <link th:href="@{/resources/bower_components/angular-material-data-table/dist/md-data-table.min.css}"
+          rel="stylesheet"
+          type="text/css"/>
+    <script th:src="@{/resources/bower_components/angular-material-data-table/dist/md-data-table.min.js}"></script>
+    <script th:src="@{/resources/bower_components/angulargrid/angulargrid.js}"></script>
+    <script th:src="@{/resources/js/date.js}"></script>
 </head>
 
 <style>
@@ -88,7 +97,15 @@
                              layout="column">
                             <md-button style="text-align: left; margin: 0"
                                        href="{{item.link}}"
-                                       ng-click="loading = true; toggleLeftSideNav()">
+                                       ng-if="isMenuActive(item)"
+                                       md-colors="{color: 'primary-500', background :'background-200'}"
+                                       ng-click="onMenuItemClick(item)">
+                                {{item.title}}
+                            </md-button>
+                            <md-button style="text-align: left; margin: 0"
+                                       href="{{item.link}}"
+                                       ng-if="!isMenuActive(item)"
+                                       ng-click="onMenuItemClick(item)">
                                 {{item.title}}
                             </md-button>
                         </div>

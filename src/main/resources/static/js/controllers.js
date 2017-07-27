@@ -22,9 +22,47 @@ app.controller('LoadingController', function ($scope, $rootScope) {
 });
 
 app.controller('MenuLeftController', function ($scope, $rootScope, $http) {
+    $scope.selectedMenuItemId = null;
+
+    $scope.$on('$routeChangeStart', function (next, current) {
+        $scope.checkHashForActiveMenu($scope.menuItems);
+    });
+
+    $scope.checkHashForActiveMenu = function (menuItems) {
+        var winHash = window.location.hash;
+
+        menuItems.forEach(function (item) {
+            if (item.link === winHash) {
+                $scope.setActiveMenu(item);
+                return;
+            }
+        })
+    };
+
+    $scope.onMenuItemClick = function (menuItem) {
+        if (menuItem !== null && $scope.selectedMenuItemId !== menuItem.id) {
+            $rootScope.loading = true;
+            $rootScope.toggleLeftSideNav();
+            $scope.setActiveMenu(menuItem);
+        }
+    };
+
+    $scope.setActiveMenu = function (menuItem) {
+        if (menuItem !== null && menuItem.id !== null)
+            $scope.selectedMenuItemId = menuItem.id;
+    };
+
+    $scope.isMenuActive = function (menuItem) {
+        if (menuItem === null || menuItem.id === null || $scope.selectedMenuItemId === null)
+            return false;
+        return menuItem.id === $scope.selectedMenuItemId;
+    };
+
     $http.get("/resources/data/menu.json")
         .success(function (data) {
             $scope.menuItems = data;
+
+            $scope.checkHashForActiveMenu($scope.menuItems);
         });
 
     $http.get("/resources/data/currency_pairs.json", {dataType: 'jsonp'})
