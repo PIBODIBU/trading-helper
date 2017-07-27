@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/me/**").access("isAuthenticated()")
                 .antMatchers("/tx/**").access("isAuthenticated()")
                 .and()
-                .formLogin().defaultSuccessUrl("/me/").loginPage("/app/login").failureUrl("/app/login?error")
+                .formLogin().defaultSuccessUrl("/tx/list").loginPage("/app/login").failureUrl("/app/login?error")
                 .usernameParameter("username").passwordParameter("password")
                 .and()
                 .logout().logoutSuccessUrl("/app/login/?logout")
