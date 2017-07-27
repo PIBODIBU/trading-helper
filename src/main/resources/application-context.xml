@@ -17,7 +17,6 @@
         </mvc:argument-resolvers>
     </mvc:annotation-driven>
 
-
     <mvc:resources mapping="/resources/**" location="/static/"/>
 
     <!-- BEANS -->
