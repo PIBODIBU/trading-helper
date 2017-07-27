@@ -11,8 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String simplePage(ModelMap modelMap) {
-//        ModelAndView modelAndView = new ModelAndView("login.jsp");
-
         return "login";
     }
 }

@@ -16,18 +16,4 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableSpringDataWebSupport
 @ComponentScan
 public class WebConfig extends WebMvcConfigurationSupport {
-    @Override
-    public ViewResolver mvcViewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("/jsp/");
-        return resolver;
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        if (!registry.hasMappingForPattern("/resources/**")) {
-            registry.addResourceHandler("/resources/**").addResourceLocations(
-                    "/static/");
-        }
-    }
 }
