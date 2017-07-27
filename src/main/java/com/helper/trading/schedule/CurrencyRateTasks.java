@@ -38,7 +38,7 @@ public class CurrencyRateTasks {
         this.stockService = stockService;
     }
 
-    @Scheduled(fixedRate = 60000) // 1 minute
+    //@Scheduled(fixedRate = 60000) // 1 minute
     public void checkCurrencyRateDbRecords() {
         Set<CurrencyRate> currencyRates = rateService.getAll();
         Set<Stock> stocks = stockService.getAll();
@@ -66,7 +66,7 @@ public class CurrencyRateTasks {
         }
     }
 
-    @Scheduled(fixedRate = 30000) // 30 sec
+    //@Scheduled(fixedRate = 30000) // 30 sec
     public void updateCurrencyRateRecords() {
         Set<CurrencyRate> rates = rateService.getAll();
         HashMap<String, Exchange> exchanges = new ManagedMap<>();
