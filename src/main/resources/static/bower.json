@@ -1,0 +1,22 @@
+{
+  "name": "TradingHelper",
+  "homepage": "https://github.com/PIBODIBU/trading-helper",
+  "authors": [
+    "Satoshi Nakamoto <cup.cake@inbox.ru>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material-data-table": "^0.10.10",
+    "angular-masonry": "^0.17.0",
+    "angulargrid": "^0.6.5"
+  }
+}

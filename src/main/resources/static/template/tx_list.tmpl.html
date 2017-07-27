@@ -1,0 +1,218 @@
+<style>
+    .grid {
+        list-style: none;
+        -moz-box-sizing: border-box;
+        -webkit-transition: all 0.6s ease-out;
+        transition: all 0.6s ease-out;
+    }
+</style>
+
+<md-content ng-controller="TXListController"
+            layout-padding>
+    <md-toolbar md-theme="white"
+                style="z-index: 1"
+                md-whiteframe="2">
+        <div class="md-toolbar-tools">
+            <h2 layout-padding ng-show="$mdMedia('gt-md')">txs</h2>
+
+            <md-autocomplete
+                    flex="50"
+                    md-no-cache="ctrl.noCache"
+                    md-selected-item="ctrl.selectedItem"
+                    md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                    md-search-text="ctrl.searchText"
+                    md-selected-item-change="ctrl.selectedItemChange(item)"
+                    md-items="item in ctrl.querySearch(ctrl.searchText)"
+                    md-item-text="item.name"
+                    md-min-length="0"
+                    placeholder="Search a transaction"
+                    md-menu-class="autocomplete-custom-template">
+            </md-autocomplete>
+
+            <div flex>
+            </div>
+
+            <md-input-container>
+                <label>Items per page</label>
+                <md-select ng-model="settings.limit" ng-change="setLimit()" md-theme="default">
+                    <md-option ng-value="item.value" ng-repeat="item in settings.limitAvailable">{{item.name}}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-menu md-position-mode="target-right target" md-theme="default">
+                <md-button class="md-icon-button" ng-click="$mdMenu.open()">
+                    <md-icon md-menu-align-target md-svg-icon="timer" style="fill: #757575"></md-icon>
+                </md-button>
+                <md-menu-content width="3">
+                    <md-menu-item ng-repeat=" interval in settings.ticker.intervals">
+                        <md-button ng-click="setTickerUpdateInterval(interval.value)">
+                            <div layout="row" flex>
+                                <p flex>{{interval.name}}</p>
+                                <md-icon md-menu-align-target md-svg-icon="check"
+                                         ng-if="settings.ticker.updateInterval == interval.value"></md-icon>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+
+            <md-menu md-position-mode="target-right target" md-theme="default">
+                <md-button class="md-icon-button" ng-click="$mdMenu.open()">
+                    <md-icon md-menu-align-target md-svg-icon="application" style="fill: #757575"></md-icon>
+                </md-button>
+                <md-menu-content width="3">
+                    <md-menu-item>
+                        <md-button ng-click="settings.layout = 'cards'">
+                            <div layout="row" flex>
+                                <md-icon md-menu-align-target md-svg-icon="view-grid"></md-icon>
+                                <p flex>Cards</p>
+                                <md-icon md-menu-align-target md-svg-icon="check"
+                                         ng-if="settings.layout == 'cards'"></md-icon>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                        <md-button ng-click="settings.layout = 'table'">
+                            <div layout="row" flex>
+                                <md-icon md-menu-align-target md-svg-icon="view-headline"></md-icon>
+                                <p flex>Table</p>
+                                <md-icon md-menu-align-target md-svg-icon="check"
+                                         ng-if="settings.layout == 'table'"></md-icon>
+                            </div>
+                        </md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </div>
+    </md-toolbar>
+
+    <div ng-switch="settings.layout">
+        <div ng-switch-when="table">
+            <md-table-container ng-style="{'background-color': '#ffffff'}"
+                                md-whiteframe="2">
+                <table md-table md-row-select multiple ng-model="layout.table.selected" md-progress="promise">
+                    <thead md-head md-order="settings.order" md-on-reorder="gettxs">
+                    <tr md-row>
+                        <th md-column md-numeric md-order-by="date">Date</th>
+                        <th md-column md-order-by="txType.name">Type</th>
+                        <th md-column md-order-by="stock.name">Stock</th>
+                        <th md-column md-order-by="currencyPair.name">Currency pair</th>
+                        <th md-column md-numeric md-order-by="tradePrice">Trade price</th>
+                        <th md-column md-numeric md-order-by="quantity">Quantity</th>
+                        <th md-column md-numeric md-order-by="total"><span>Total</span></th>
+                        <th md-column>Notes</th>
+                    </tr>
+                    </thead>
+
+                    <tbody md-body>
+                    <tr md-row md-select="tx"
+                        md-select-id="name"
+                        md-auto-select
+                        md-on-select="onSelect"
+                        md-on-deselect="onDeselect"
+                        ng-repeat="tx in txs | orderBy: settings.order | limitTo: settings.limit: (layout.table.page - 1) * settings.limit">
+                        <td md-cell>{{tx.tradeDate | msToDate}}</td>
+                        <td md-cell ng-if="tx.txType.name == 'Buy'" ng-style="{'color': '#4CAF50'}">
+                            <b>{{tx.txType.name}}</b>
+                        </td>
+                        <td md-cell ng-if="tx.txType.name == 'Sell'" ng-style="{'color': '#F44336'}">
+                            <b>{{tx.txType.name}}</b>
+                        </td>
+                        <td md-cell>{{tx.stock.name}}</td>
+                        <td md-cell>{{tx.currencyPair.name}}</td>
+                        <td md-cell>{{tx.tradePrice}}</td>
+                        <td md-cell>{{tx.quantity}}</td>
+                        <td md-cell>{{tx.total}}</td>
+                        <td md-cell ng-click="editNote($event, tx)" ng-class="{'md-placeholder': !tx.notes}">
+                            {{tx.notes || 'Add a note'}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+            <md-table-pagination ng-if="settings.layout == 'table'"
+                                 md-limit="layout.table.table.limit"
+                                 md-limit-options="[5, 10, 15]"
+                                 md-page="layout.table.table.page"
+                                 md-total="{{txs.length}}"
+                                 md-on-paginate="getTxs"
+                                 md-page-select></md-table-pagination>
+        </div>
+
+        <div ng-switch-when="cards">
+            <div class="dynamic-grid"
+                 ag-id="cards"
+                 refresh-on-img-load="false"
+                 angular-grid="txs">
+                <div data-ng-repeat="tx in txs | orderBy: settings.order"
+                     class="grid">
+                    <md-card>
+                        <md-card-header>
+                            <md-card-header-text>
+                                <span class="md-title">{{tx.currencyPair.name}} ({{tx.stock.name}})</span>
+                                <div class="md-subhead" ng-if="tx.txType.name == 'Buy'"
+                                     ng-style="{'color': '#4CAF50'}">
+                                    <b>{{tx.txType.name}}</b>
+                                </div>
+                                <div class="md-subhead" ng-if="tx.txType.name == 'Sell'"
+                                     ng-style="{'color': '#F44336'}">
+                                    <b>{{tx.txType.name}}</b>
+                                </div>
+                            </md-card-header-text>
+
+                            <div layout="column" layout-align="center center"
+                                 ng-if="tx.tradePrice > tx.ticker.rate">
+                                <md-icon style="fill: #F44336" md-svg-icon="arrow-down-bold"></md-icon>
+                                <span class="md-caption"
+                                      style="color: #F44336;">-{{tx.tradePrice / tx.ticker.rate | number: 2}}%</span>
+                            </div>
+
+                            <div layout="column" layout-align="center center"
+                                 ng-if="tx.tradePrice < tx.ticker.rate">
+                                <md-icon style="fill: #4CAF50" md-svg-icon="arrow-up-bold"></md-icon>
+                                <span class="md-caption" style="color: #4CAF50;">{{100-(tx.tradePrice*100/tx.ticker.rate) | number: 2}}%</span>
+                            </div>
+                        </md-card-header>
+
+                        <md-card-content layout="row" layout-padding layout-wrap>
+                            <div layout="column" flex="50">
+                                <span class="md-caption">Trade price</span>
+                                <b><span
+                                        class="md-headline">{{tx.tradePrice}} {{tx.currencyPairInfo.counter.code}}</span></b>
+                            </div>
+
+                            <div flex="50" layout="column">
+                                <span class="md-caption">Current price</span>
+                                <span class="md-headline">{{tx.ticker.rate}} {{tx.currencyPairInfo.counter.code}}</span>
+                            </div>
+
+                            <div layout="column" flex="50">
+                                <span class="md-caption">Quantity</span>
+                                <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.quantity}} {{tx.currencyPairInfo.base.code}}</span></b>
+                                <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.quantity}} {{tx.currencyPairInfo.counter.code}}</span></b>
+                            </div>
+
+                            <div layout="column" flex="50">
+                                <span class="md-caption">Total</span>
+                                <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.total}} {{tx.currencyPairInfo.counter.code}}</span></b>
+                                <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.total}} {{tx.currencyPairInfo.base.code}}</span></b>
+                            </div>
+
+                            <div flex="100" layout="column">
+                                <span class="md-caption">Transaction date & time</span>
+                                <span class="md-headline">{{tx.tradeDate | msToDate}}</span>
+                            </div>
+
+                            <div flex="100" ng-if="tx.notes" layout="column">
+                                <b><span>Notes</span></b>
+                                <span class="md-body-1">{{tx.notes}}</span>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</md-content>

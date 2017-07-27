@@ -8,6 +8,7 @@ import com.helper.trading.util.StockUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,11 +33,9 @@ public class TransactionController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public ModelAndView list() throws IOException {
-        ModelAndView modelAndView = new ModelAndView("index.jsp");
+    public String list(ModelMap modelMap) throws IOException {
+        modelMap.addAttribute("user", gson.toJson(securityService.getUserFromContext()));
 
-        modelAndView.addObject("user", gson.toJson(securityService.getUserFromContext()));
-
-        return modelAndView;
+        return "index";
     }
 }

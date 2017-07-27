@@ -1,0 +1,39 @@
+[
+  {
+    "name": "BTC/USD",
+    "stock": "Bitfinex",
+    "stock_id": 5,
+    "pair_id": 2,
+    "link": "",
+    "counter": "USD",
+    "code": "btc_usd"
+  },
+  {
+    "name": "LTC/BTC",
+    "stock": "Bitfinex",
+    "stock_id": 5,
+    "pair_id": 4,
+    "link": "",
+    "counter": "BTC",
+    "code": "ltc_btc"
+  },
+  {
+    "name": "ETH/USD",
+    "stock": "Bitfinex",
+    "stock_id": 5,
+    "pair_id": 5,
+    "link": "",
+    "counter": "USD",
+    "code": "eth_usd"
+  },
+  {
+    "name": "XRP/BTC",
+    "link": "",
+    "counter": "BTC"
+  },
+  {
+    "name": "STRAT/BTC",
+    "link": "",
+    "counter": "BTC"
+  }
+]

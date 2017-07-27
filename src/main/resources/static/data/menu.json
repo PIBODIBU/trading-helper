@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Calculator",
+    "link": "#t1"
+  },
+  {
+    "title": "Stop/Limit",
+    "link": "#t2"
+  },
+  {
+    "title": "Poloniex",
+    "link": "#poloniex"
+  },
+  {
+    "title": "Transactions",
+    "link": "#tx_list"
+  },
+  {
+    "title": "About",
+    "link": "#t"
+  }
+]

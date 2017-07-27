@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+
+    <script src="http://code.jquery.com/jquery-3.2.1.js"
+            integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="></script>
+
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-resource.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-animate.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-aria.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-messages.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.js"></script>
+    <script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.1.3/angular-material.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+
+    <script th:src="@{/static/js/app.js}"></script>
+    <link th:href="@{/static/bower_components/angular-material-data-table/dist/md-data-table.min.css}" rel="stylesheet"
+          type="text/css"/>
+    <script th:src="@{/static/bower_components/angular-material-data-table/dist/md-data-table.min.js}"></script>
+    <script th:src="@{/static/bower_components/angulargrid/angulargrid.js}"></script>
+    <script th:src="@{/static/js/date.js}"></script>
+</head>
+
+<style>
+    .hiddenOverflow {
+        overflow: hidden;
+    }
+</style>
+
+<body ng-app="TradingHelperApp"
+      ng-cloak
+      layout="row">
+
+<div layout="column"
+     flex>
+    <md-toolbar md-whiteframe="4"
+                ng-controller="ToolbarCtrl">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button"
+                       aria-label="Menu"
+                       ng-click="toggleLeftSideNav()"
+                       hide-gt-md>
+                <md-icon md-svg-icon="menu"></md-icon>
+            </md-button>
+
+            <h2 flex>Trading helper</h2>
+
+            <md-button class="md-icon-button"
+                       aria-label="More">
+                <md-icon md-svg-icon="dots-vertical"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-progress-linear md-mode="query"
+                        ng-controller="LoadingController"
+                        ng-show="loading"></md-progress-linear>
+
+    <md-content layout="row"
+                flex>
+        <md-sidenav class="md-sidenav-left"
+                    md-component-id="left"
+                    md-is-locked-open="$mdMedia('gt-md')"
+                    ng-style="{hiddenOverflow: $mdMedia('gt-md')}"
+                    style="background: transparent; height: 100%">
+            <div ng-controller="MenuLeftController">
+                <md-card md-whiteframe="2">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Navigation</span>
+                        </md-card-title-text>
+                    </md-card-title>
+
+                    <md-card-content>
+                        <div ng-repeat="item in menuItems"
+                             flex
+                             layout="column">
+                            <md-button style="text-align: left; margin: 0"
+                                       href="{{item.link}}"
+                                       ng-click="loading = true; toggleLeftSideNav()">
+                                {{item.title}}
+                            </md-button>
+                        </div>
+                    </md-card-content>
+                </md-card>
+
+                <md-card md-whiteframe="2">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Stocks</span>
+                        </md-card-title-text>
+                    </md-card-title>
+
+                    <md-card-content>
+                        <div ng-repeat="item in stocks"
+                             flex
+                             layout="column">
+                            <md-button style="text-align: left; margin: 0"
+                                       href="{{item.link}}"
+                                       ng-click="loading = true; toggleLeftSideNav()">
+                                {{item.name}}
+                            </md-button>
+                        </div>
+                    </md-card-content>
+                </md-card>
+
+                <md-card md-whiteframe="2">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <span class="md-headline">Currency pairs</span>
+                        </md-card-title-text>
+                    </md-card-title>
+
+                    <md-card-content>
+                        <div ng-repeat="item in currPairs"
+                             flex
+                             layout="column">
+                            <md-button style="text-align: left; margin: 0">
+                                {{item.name}} - {{item.ticker.rate}} {{item.counter}} ({{item.stock}})
+                            </md-button>
+                        </div>
+                    </md-card-content>
+                </md-card>
+            </div>
+        </md-sidenav>
+
+        <div ng-controller="ViewCtrl"
+             flex>
+            <ng-view></ng-view>
+        </div>
+    </md-content>
+</div>
+
+<jsp:include page="/jsp/jsp_include/controllers.jsp"/>
+
+</body>
+</html>
