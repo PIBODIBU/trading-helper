@@ -166,13 +166,19 @@
                                  ng-if="tx.tradePrice > tx.ticker.rate">
                                 <md-icon style="fill: #F44336" md-svg-icon="arrow-down-bold"></md-icon>
                                 <span class="md-caption"
-                                      style="color: #F44336;">-{{tx.tradePrice / tx.ticker.rate | number: 2}}%</span>
+                                      style="color: #F44336;">{{100-(tx.ticker.rate * 100 / tx.tradePrice) | number: 2}}%</span>
+                            </div>
+
+                            <div layout="column" layout-align="center center"
+                                 ng-if="tx.tradePrice == tx.ticker.rate">
+                                <md-icon style="fill: #4CAF50" md-svg-icon="arrow-up-bold"></md-icon>
+                                <span class="md-caption" style="color: #4CAF50;">{{0 | number: 2}}%</span>
                             </div>
 
                             <div layout="column" layout-align="center center"
                                  ng-if="tx.tradePrice < tx.ticker.rate">
                                 <md-icon style="fill: #4CAF50" md-svg-icon="arrow-up-bold"></md-icon>
-                                <span class="md-caption" style="color: #4CAF50;">{{100-(tx.tradePrice*100/tx.ticker.rate) | number: 2}}%</span>
+                                <span class="md-caption" style="color: #4CAF50;">{{100-(tx.tradePrice * 100 / tx.ticker.rate) | number: 2}}%</span>
                             </div>
                         </md-card-header>
 
