@@ -8,15 +8,16 @@
     <artifactId>TradingHelper</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <!--<parent>
+    <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.5.2.RELEASE</version>
-    </parent>-->
+    </parent>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.8</java.version>
     </properties>
 
     <repositories>
@@ -24,39 +25,26 @@
             <id>JBoss repository</id>
             <url>http://repository.jboss.com/maven2/</url>
         </repository>
+        <repository>
+            <id>spring-milestone</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
     </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-milestone</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <build>
         <plugins>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.0.2</version>
-
-                <executions>
-                    <execution>
-                        <id>default-jar</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <excludes>
-                                <!--<exclude>com/futoria/core/application/**</exclude>-->
-                            </excludes>
-                        </configuration>
-                    </execution>
-                </executions>
-
-                <!-- <configuration>
-                     <source>1.8</source>
-                     <target>1.8</target>
-
-                     <excludes>
-                         <exclude>com/futoria/core/application/**.class</exclude>
-                     </excludes>
-                 </configuration>-->
-            </plugin>
+            </plugin>-->
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
