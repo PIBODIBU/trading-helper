@@ -6,7 +6,6 @@ import com.helper.trading.service.CurrencyRateService;
 import com.helper.trading.service.StockService;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
-import org.knowm.xchange.bitfinex.v1.BitfinexExchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.service.marketdata.MarketDataService;
@@ -22,7 +21,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 @Component
-public class CurrencyRateTasks { // TODO Enable
+public class CurrencyRateTasks {
     private CurrencyRateService rateService;
     private StockService stockService;
 
@@ -38,7 +37,7 @@ public class CurrencyRateTasks { // TODO Enable
         this.stockService = stockService;
     }
 
-    //@Scheduled(fixedRate = 60000) // 1 minute
+    @Scheduled(fixedRate = 60000) // 1 minute
     public void checkCurrencyRateDbRecords() {
         Set<CurrencyRate> currencyRates = rateService.getAll();
         Set<Stock> stocks = stockService.getAll();
@@ -66,7 +65,7 @@ public class CurrencyRateTasks { // TODO Enable
         }
     }
 
-    //@Scheduled(fixedRate = 30000) // 30 sec
+    @Scheduled(fixedRate = 30000) // 30 sec
     public void updateCurrencyRateRecords() {
         Set<CurrencyRate> rates = rateService.getAll();
         HashMap<String, Exchange> exchanges = new ManagedMap<>();
