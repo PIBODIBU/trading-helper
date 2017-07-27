@@ -21,7 +21,7 @@
     <mvc:resources mapping="/resources/**" location="/static/"/>
 
     <!-- BEANS -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/jsp/"/>
-    </bean>
+    </bean>-->
 </beans>
