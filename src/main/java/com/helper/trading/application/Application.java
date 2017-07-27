@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EntityScan(basePackages = {"com.helper.trading.model"})
 @EnableJpaRepositories(basePackages = {"com.helper.trading.repository"}, transactionManagerRef = "txManager")
 @EnableTransactionManagement
-//@ComponentScan("com.helper.trading")
-//@ImportResource("classpath:application-context.xml")
+@ComponentScan("com.helper.trading")
+@ImportResource("classpath:application-context.xml")
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
