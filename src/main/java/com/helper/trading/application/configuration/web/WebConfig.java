@@ -10,17 +10,17 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-/*@Configuration
+@Configuration
 @EnableWebMvc
 @EnableSpringDataWebSupport
-@Primary*/
+@Primary
 public class WebConfig extends WebMvcConfigurationSupport {
-    /*@Bean
+    @Bean
     public ViewResolver getViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/jsp/");
         return resolver;
-    }*/
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
