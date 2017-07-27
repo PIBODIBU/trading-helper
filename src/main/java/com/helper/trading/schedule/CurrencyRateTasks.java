@@ -72,10 +72,6 @@ public class CurrencyRateTasks {
         HashMap<String, Exchange> exchanges = new ManagedMap<>();
 
         for (CurrencyRate rate : rates) {
-            log.info(String.valueOf(rate.getRate()));
-        }
-
-        for (CurrencyRate rate : rates) {
             String dbStockName = rate.getStock().getName();
             String dbStockJavaName = rate.getStock().getNameJava();
 
@@ -110,10 +106,6 @@ public class CurrencyRateTasks {
                         "\nPair: " + rate.getCurrencyPair().getName() +
                         "\n" + e.getMessage());
             }
-        }
-
-        for (CurrencyRate rate : rates) {
-            log.info(String.valueOf(rate.getRate()));
         }
 
         // Update db records

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @EnableSpringDataWebSupport
 public class WebConfig extends WebMvcConfigurationSupport {
-    @Bean
+    /*@Bean
     public ViewResolver getViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/jsp/");
@@ -26,5 +26,5 @@ public class WebConfig extends WebMvcConfigurationSupport {
             registry.addResourceHandler("/resources/**").addResourceLocations(
                     "/static/");
         }
-    }
+    }*/
 }
