@@ -7,6 +7,7 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -15,8 +16,8 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableSpringDataWebSupport
 @ComponentScan
 public class WebConfig extends WebMvcConfigurationSupport {
-    @Bean
-    public ViewResolver getViewResolver() {
+    @Override
+    public ViewResolver mvcViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/jsp/");
         return resolver;
