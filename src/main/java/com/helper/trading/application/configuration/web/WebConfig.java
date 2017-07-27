@@ -10,10 +10,10 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-@Configuration
+/*@Configuration
 @EnableWebMvc
 @EnableSpringDataWebSupport
-@Primary
+@Primary*/
 public class WebConfig extends WebMvcConfigurationSupport {
     /*@Bean
     public ViewResolver getViewResolver() {
