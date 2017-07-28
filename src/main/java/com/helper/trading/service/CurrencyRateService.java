@@ -5,6 +5,8 @@ import com.helper.trading.model.CurrencyRate;
 import com.helper.trading.model.Stock;
 import com.helper.trading.repository.CurrencyRateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,5 +40,9 @@ public class CurrencyRateService {
 
     public void performComplexUpdate(Set<CurrencyRate> rates) {
         repository.save(rates);
+    }
+
+    public Page<CurrencyRate> paged(Pageable pageable){
+        return repository.findAll(pageable);
     }
 }

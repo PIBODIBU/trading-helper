@@ -1,0 +1,11 @@
+<md-content ng-controller="StockListController"
+            layout-wrap
+            layout="row">
+    <div ng-repeat="rate in rates"
+         flex="20"
+         layout-padding>
+        Stock:{{rate.stock.name}}<br/>
+        Pair:{{rate.currencyPair.name}}<br/>
+        Rate:{{rate.rate}}<br/>
+    </div>
+</md-content>

@@ -97,10 +97,6 @@ app.controller('MenuLeftController', function ($scope, $rootScope, $http) {
         });
 });
 
-app.controller('StockController', function ($scope) {
-
-});
-
 app.controller('TXListController', function ($scope, $rootScope, $mdEditDialog, $http, $route,
                                              $interval, api, api_tx, angularGridInstance, $timeout) {
     $scope.selected = [];
@@ -209,4 +205,22 @@ app.controller('TXListController', function ($scope, $rootScope, $mdEditDialog, 
 
     $scope.getTxs();
     $scope.tickerInterval = $interval($scope.updateTickers, $scope.settings.ticker.updateInterval);
+});
+
+app.controller('StockListController', function ($scope, $routeParams, api, api_stock, api_rate) {
+    console.log($routeParams);
+
+    api_rate.getPaged(0, 51)
+        .success(function (data) {
+            $scope.rates = data.content;
+            console.log("Rates: ", data)
+        });
+
+    api_stock.getPaged(0, -1)
+        .success(function (data) {
+            console.log(data);
+        })
+        .error(function (error) {
+            console.log(error);
+        })
 });

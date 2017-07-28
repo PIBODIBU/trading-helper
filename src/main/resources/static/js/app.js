@@ -49,7 +49,10 @@ app.config(function ($routeProvider) {
         })
         .when("/t", {
             templateUrl: "/resources/template/tx_list.tmpl.html"
-        });
+        })
+        .when("/rate", {
+            templateUrl: "/resources/template/stock_list.tmpl.html"
+        })
     /*.otherwise({
         templateUrl: "/resources/template/tx_list.tmpl.html"
     })*/
@@ -195,6 +198,36 @@ app.service('api_ticker', function ($http, api) {
             [
                 {name: 'currency_pair_id', value: pairId},
                 {name: 'stock_id', value: stockId}
+            ],
+            api.methods.GET));
+    };
+});
+
+app.service('api_stock', function ($http, api) {
+    this.get = function (id) {
+        return $http.get(api.prepareParams(api.URL + 'stock/get',
+            [
+                {name: 'stock_id', value: id}
+            ],
+            api.methods.GET));
+    };
+
+    this.getPaged = function (page, size) {
+        return $http.get(api.prepareParams(api.URL + 'stock/list',
+            [
+                {name: 'page', value: page},
+                {name: 'size', value: size}
+            ],
+            api.methods.GET));
+    };
+});
+
+app.service('api_rate', function ($http, api) {
+    this.getPaged = function (page, size) {
+        return $http.get(api.prepareParams(api.URL + 'rate/list',
+            [
+                {name: 'page', value: page},
+                {name: 'size', value: size}
             ],
             api.methods.GET));
     };

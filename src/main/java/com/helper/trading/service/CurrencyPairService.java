@@ -17,4 +17,8 @@ public class CurrencyPairService {
     public CurrencyPair get(Long id) {
         return repository.findOne(id);
     }
+
+    public CurrencyPair get(String name){
+        return repository.findFirstByName(name);
+    }
 }
