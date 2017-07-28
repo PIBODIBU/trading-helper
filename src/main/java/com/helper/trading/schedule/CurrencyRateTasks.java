@@ -41,6 +41,34 @@ public class CurrencyRateTasks {
     public void checkCurrencyRateDbRecords() {
         Set<CurrencyRate> currencyRates = rateService.getAll();
         Set<Stock> stocks = stockService.getAll();
+        Exchange exchange;
+        boolean alreadyExists;
+
+        for (Stock stock : stocks) {
+            exchange = ExchangeFactory.INSTANCE.createExchange(stock.getNameJava());
+
+            for (CurrencyPair currencyPair : exchange.getExchangeSymbols()) {
+                alreadyExists = false;
+
+                for (CurrencyRate currencyRate : currencyRates) {
+                    if (currencyRate.getCurrencyPair().getName().equals(currencyPair.toString()))
+                        alreadyExists = true;
+                }
+
+                if (!alreadyExists) {
+                    CurrencyRate newItem = new CurrencyRate();
+                    newItem.setRate(0D);
+                    newItem.setDateUpdated(new Date());
+                    newItem.setStock(stock);
+                    newItem.setCurrencyPair(com.helper.trading.model.CurrencyPair.fromXChange(currencyPair));
+
+                    rateService.add(newItem);
+                }
+            }
+        }
+
+        /*Set<CurrencyRate> currencyRates = rateService.getAll();
+        Set<Stock> stocks = stockService.getAll();
         boolean alreadyExists;
 
         for (Stock stock : stocks) {
@@ -62,7 +90,7 @@ public class CurrencyRateTasks {
                     rateService.add(newItem);
                 }
             }
-        }
+        }*/
     }
 
     @Scheduled(fixedRate = 30000) // 30 sec

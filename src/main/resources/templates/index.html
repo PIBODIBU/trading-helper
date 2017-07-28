@@ -52,6 +52,7 @@
       layout="row">
 
 <div layout="column"
+     md-whiteframe="4"
      flex="100">
     <md-toolbar md-whiteframe="4"
                 ng-controller="ToolbarCtrl">
@@ -76,86 +77,95 @@
                         ng-controller="LoadingController"
                         ng-show="loading"></md-progress-linear>
 
-    <md-content layout="row"
-                flex>
-        <md-sidenav class="md-sidenav-left"
-                    md-component-id="left"
-                    md-is-locked-open="$mdMedia('gt-md')"
-                    ng-style="{hiddenOverflow: $mdMedia('gt-md')}"
-                    style="background: transparent; height: 100%">
-            <div ng-controller="MenuLeftController">
-                <md-card md-whiteframe="2">
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Navigation</span>
-                        </md-card-title-text>
-                    </md-card-title>
+    <md-content>
+        <md-content layout="row"
+                    md-whiteframe="2"
+                    style="padding-bottom: 24px;"
+                    flex>
+            <md-sidenav class="md-sidenav-left"
+                        md-component-id="left"
+                        md-is-locked-open="$mdMedia('gt-md')"
+                        ng-style="{hiddenOverflow: $mdMedia('gt-md')}"
+                        style="background: transparent; height: 100%">
+                <div ng-controller="MenuLeftController">
+                    <md-card md-whiteframe="2">
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">Navigation</span>
+                            </md-card-title-text>
+                        </md-card-title>
 
-                    <md-card-content>
-                        <div ng-repeat="item in menuItems"
-                             flex
-                             layout="column">
-                            <md-button style="text-align: left; margin: 0"
-                                       href="{{item.link}}"
-                                       ng-if="isMenuActive(item)"
-                                       md-colors="{color: 'primary-500', background :'background-200'}"
-                                       ng-click="onMenuItemClick(item)">
-                                {{item.title}}
-                            </md-button>
-                            <md-button style="text-align: left; margin: 0"
-                                       href="{{item.link}}"
-                                       ng-if="!isMenuActive(item)"
-                                       ng-click="onMenuItemClick(item)">
-                                {{item.title}}
-                            </md-button>
-                        </div>
-                    </md-card-content>
-                </md-card>
+                        <md-card-content>
+                            <div ng-repeat="item in menuItems"
+                                 flex
+                                 layout="column">
+                                <md-button style="text-align: left; margin: 0"
+                                           href="{{item.link}}"
+                                           ng-if="isMenuActive(item)"
+                                           md-colors="{color: 'primary-500', background :'background-200'}"
+                                           ng-click="onMenuItemClick(item)">
+                                    {{item.title}}
+                                </md-button>
+                                <md-button style="text-align: left; margin: 0"
+                                           href="{{item.link}}"
+                                           ng-if="!isMenuActive(item)"
+                                           ng-click="onMenuItemClick(item)">
+                                    {{item.title}}
+                                </md-button>
+                            </div>
+                        </md-card-content>
+                    </md-card>
 
-                <md-card md-whiteframe="2">
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Stocks</span>
-                        </md-card-title-text>
-                    </md-card-title>
+                    <md-card md-whiteframe="2">
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">Stocks</span>
+                            </md-card-title-text>
+                        </md-card-title>
 
-                    <md-card-content>
-                        <div ng-repeat="item in stocks"
-                             flex
-                             layout="column">
-                            <md-button style="text-align: left; margin: 0"
-                                       href="{{item.link}}"
-                                       ng-click="loading = true; toggleLeftSideNav()">
-                                {{item.name}}
-                            </md-button>
-                        </div>
-                    </md-card-content>
-                </md-card>
+                        <md-card-content>
+                            <div ng-repeat="item in stocks"
+                                 flex
+                                 layout="column">
+                                <md-button style="text-align: left; margin: 0"
+                                           href="{{item.link}}"
+                                           ng-click="loading = true; toggleLeftSideNav()">
+                                    {{item.name}}
+                                </md-button>
+                            </div>
+                        </md-card-content>
+                    </md-card>
 
-                <md-card md-whiteframe="2">
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">Currency pairs</span>
-                        </md-card-title-text>
-                    </md-card-title>
+                    <md-card md-whiteframe="2">
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">Currency pairs</span>
+                            </md-card-title-text>
+                        </md-card-title>
 
-                    <md-card-content>
-                        <div ng-repeat="item in currPairs"
-                             flex
-                             layout="column">
-                            <md-button style="text-align: left; margin: 0">
-                                {{item.name}} - {{item.ticker.rate}} {{item.counter}} ({{item.stock}})
-                            </md-button>
-                        </div>
-                    </md-card-content>
-                </md-card>
+                        <md-card-content>
+                            <div ng-repeat="item in currPairs"
+                                 flex
+                                 layout="column">
+                                <md-button style="text-align: left; margin: 0">
+                                    {{item.name}} - {{item.ticker.rate}} {{item.counter}} ({{item.stock}})
+                                </md-button>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                </div>
+            </md-sidenav>
+
+            <div ng-controller="ViewCtrl"
+                 flex>
+                <ng-view></ng-view>
             </div>
-        </md-sidenav>
+        </md-content>
 
-        <div ng-controller="ViewCtrl"
-             flex>
-            <ng-view></ng-view>
-        </div>
+        <section style="height: 200px" md-colors="{background: 'primary-500'}">
+            <md-button>dsv</md-button>
+            sdfgbh
+        </section>
     </md-content>
 </div>
 

@@ -35,6 +35,12 @@ public class CurrencyPair {
         this.name = name;
     }
 
+    public static CurrencyPair fromXChange(org.knowm.xchange.currency.CurrencyPair xchangePair) {
+        CurrencyPair pair = new CurrencyPair();
+        pair.setName(xchangePair.toString());
+        return pair;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof CurrencyPair)
