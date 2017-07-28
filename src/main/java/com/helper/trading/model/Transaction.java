@@ -44,7 +44,7 @@ public class Transaction {
     @Temporal(TemporalType.TIMESTAMP)
     private Date tradeDate;
 
-    @Column(name = "notes", length = 250, nullable = true)
+    @Column(name = "notes", length = 250)
     private String notes;
 
     public Long getId() {

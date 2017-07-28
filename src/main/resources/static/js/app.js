@@ -46,10 +46,13 @@ app.config(function ($routeProvider) {
     $routeProvider
         .when("/tx_list", {
             templateUrl: "/resources/template/tx_list.tmpl.html"
-        });
-        /*.otherwise({
+        })
+        .when("/t", {
             templateUrl: "/resources/template/tx_list.tmpl.html"
-        })*/
+        });
+    /*.otherwise({
+        templateUrl: "/resources/template/tx_list.tmpl.html"
+    })*/
 });
 
 /*Directives*/
@@ -76,6 +79,18 @@ app.directive('capitalize', function () {
 app.filter('msToDate', function () {
     return function (ms) {
         return new Date(ms).customFormat("#DD#/#MM#/#YYYY# #hhhh#:#mm#:#ss#");
+    }
+});
+
+app.filter('currencyBase', function () {
+    return function (currency) {
+        return currency.split('/')[0];
+    }
+});
+
+app.filter('currencyCounter', function () {
+    return function (currency) {
+        return currency.split('/')[1];
     }
 });
 

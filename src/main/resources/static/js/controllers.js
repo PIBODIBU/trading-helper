@@ -24,14 +24,10 @@ app.controller('LoadingController', function ($scope, $rootScope) {
 app.controller('MenuLeftController', function ($scope, $rootScope, $http) {
     $scope.selectedMenuItemId = null;
 
-    $scope.$on('$routeChangeStart', function (next, current) {
-        $scope.checkHashForActiveMenu($scope.menuItems);
-    });
-
-    $scope.checkHashForActiveMenu = function (menuItems) {
+    $scope.checkHashForActiveMenu = function () {
         var winHash = window.location.hash;
 
-        menuItems.forEach(function (item) {
+        $scope.menuItems.forEach(function (item) {
             if (item.link === winHash) {
                 $scope.setActiveMenu(item);
                 return;
@@ -62,7 +58,10 @@ app.controller('MenuLeftController', function ($scope, $rootScope, $http) {
         .success(function (data) {
             $scope.menuItems = data;
 
-            $scope.checkHashForActiveMenu($scope.menuItems);
+            $scope.checkHashForActiveMenu();
+        })
+        .error(function (error) {
+            console.log(error);
         });
 
     $http.get("/resources/data/currency_pairs.json", {dataType: 'jsonp'})
@@ -102,7 +101,8 @@ app.controller('StockController', function ($scope) {
 
 });
 
-app.controller('TXListController', function ($scope, $rootScope, $mdEditDialog, $http, $route, $interval, api, api_tx, angularGridInstance, $timeout) {
+app.controller('TXListController', function ($scope, $rootScope, $mdEditDialog, $http, $route,
+                                             $interval, api, api_tx, angularGridInstance, $timeout) {
     $scope.selected = [];
     $scope.txs = [];
     $scope.txsMeta = [];
@@ -136,8 +136,11 @@ app.controller('TXListController', function ($scope, $rootScope, $mdEditDialog, 
             name: 'table',
             selected: []
         },
+        grid: {
+            name: 'grid'
+        },
         cards: {
-            name: 'cards'
+            cards: 'tiles'
         }
     };
 
