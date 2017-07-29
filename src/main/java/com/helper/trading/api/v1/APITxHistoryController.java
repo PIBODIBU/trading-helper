@@ -25,7 +25,7 @@ public class APITxHistoryController {
         spec.setApiKey("8RYK4NEK-5WM9MHSW-8XV4QFK2-4WKF16UZ");
         spec.setSecretKey("0c3c4fe2edf25dd21493d8b5cf8d149848e4e7b8b86c9956172a0f01f6f8288fa203dda1b01777592254474833e3e8bd378dd98221439c6aabac7c52ab99b7ab");
 
-        Exchange exchange = ExchangeFactory.INSTANCE.createExchange(PoloniexExchange.class.getName());
+        Exchange exchange = ExchangeFactory.INSTANCE.createExchange(spec);
 
         exchange.getTradeService();
 
