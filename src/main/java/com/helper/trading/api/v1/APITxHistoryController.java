@@ -37,7 +37,7 @@ public class APITxHistoryController {
 
         PoloniexTradeService.PoloniexTradeHistoryParams params =
                 ((PoloniexTradeService.PoloniexTradeHistoryParams) exchange.getTradeService().createTradeHistoryParams());
-        params.setCurrencyPair(CurrencyPair.XRP_BTC);
+        params.setCurrencyPair(new CurrencyPair("BTC/STEEM"));
 
         List<UserTrade> list = exchange.getTradeService()
                 .getTradeHistory(params)
