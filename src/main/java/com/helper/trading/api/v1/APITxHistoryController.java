@@ -44,8 +44,8 @@ public class APITxHistoryController {
                 .getUserTrades();
 
         log.info("Trades of:");
-        log.info("Username: ", spec.getUserName());
         log.info("Api key: ", spec.getApiKey());
+        log.info("Username: ", spec.getUserName());
         log.info("Secret: ", spec.getSecretKey());
 
         for (UserTrade trade : list) {
