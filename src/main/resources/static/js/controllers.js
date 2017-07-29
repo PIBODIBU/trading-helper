@@ -208,15 +208,15 @@ app.controller('TXListController', function ($scope, $rootScope, $mdEditDialog, 
 });
 
 app.controller('StockListController', function ($scope, $routeParams, api, api_stock, api_rate) {
-    api_rate.getPaged(0, 51)
-        .success(function (data) {
-            $scope.rates = data.content;
-        });
-
-    api_stock.getPaged(0, -1)
-        .success(function (data) {
-        })
-        .error(function (error) {
-            console.log(error);
-        })
+    if ($routeParams.stock_id !== undefined) {
+        api_rate.getPagedByStock(0, 999, $routeParams.stock_id)
+            .success(function (data) {
+                $scope.rates = data.content;
+            });
+    } else {
+        api_rate.getPaged(0, 999)
+            .success(function (data) {
+                $scope.rates = data.content;
+            });
+    }
 });

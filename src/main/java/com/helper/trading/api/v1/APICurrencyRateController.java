@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,5 +23,10 @@ public class APICurrencyRateController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Page<CurrencyRate> list(Pageable pageable) {
         return currencyRateService.paged(pageable);
+    }
+
+    @RequestMapping(value = "/list/stock", method = RequestMethod.GET)
+    public Page<CurrencyRate> listByStock(@RequestParam("stock_id") Long stockId, Pageable pageable) {
+        return currencyRateService.pagedByStock(pageable, stockId);
     }
 }

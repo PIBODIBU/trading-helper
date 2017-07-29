@@ -42,7 +42,13 @@ public class CurrencyRateService {
         repository.save(rates);
     }
 
-    public Page<CurrencyRate> paged(Pageable pageable){
+    public Page<CurrencyRate> paged(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    public Page<CurrencyRate> pagedByStock(Pageable pageable, Long stockId) {
+        Stock stock = new Stock();
+        stock.setId(stockId);
+        return repository.findAllByStock(pageable, stock);
     }
 }
