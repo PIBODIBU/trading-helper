@@ -2,15 +2,10 @@ package com.helper.trading.schedule;
 
 import com.helper.trading.model.Stock;
 import com.helper.trading.service.CurrencyPairService;
-import com.helper.trading.service.CurrencyRateService;
 import com.helper.trading.service.StockService;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
-import org.knowm.xchange.bitstamp.service.BitstampTradeHistoryParams;
 import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.service.trade.params.DefaultTradeHistoryParamCurrencyPair;
-import org.knowm.xchange.service.trade.params.DefaultTradeHistoryParamPagingSorted;
-import org.knowm.xchange.utils.jackson.CurrencyPairDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +40,16 @@ public class StockTasks {
         boolean alreadyExists, hasChanged;
 
         for (Stock stock : stocks) {
-            exchange = ExchangeFactory.INSTANCE.createExchange(stock.getNameJava());
+            exchange = null;
+
+            try {
+                exchange = ExchangeFactory.INSTANCE.createExchange(stock.getNameJava());
+            } catch (Exception ignored) {
+            }
+
+            if (exchange == null)
+                continue;
+
             stockPairs = stock.getCurrencyPairs();
             hasChanged = false;
 

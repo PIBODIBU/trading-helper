@@ -208,17 +208,13 @@ app.controller('TXListController', function ($scope, $rootScope, $mdEditDialog, 
 });
 
 app.controller('StockListController', function ($scope, $routeParams, api, api_stock, api_rate) {
-    console.log($routeParams);
-
     api_rate.getPaged(0, 51)
         .success(function (data) {
             $scope.rates = data.content;
-            console.log("Rates: ", data)
         });
 
     api_stock.getPaged(0, -1)
         .success(function (data) {
-            console.log(data);
         })
         .error(function (error) {
             console.log(error);
