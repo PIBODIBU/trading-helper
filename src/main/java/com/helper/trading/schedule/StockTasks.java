@@ -32,7 +32,7 @@ public class StockTasks {
         this.currencyPairService = currencyPairService;
     }
 
-    //@Scheduled(fixedRate = 300000) // 5 min
+    @Scheduled(fixedRate = 300000) // 5 min
     public void checkStocksPairs() {
         Set<Stock> stocks = stockService.getAll();
         Set<com.helper.trading.model.CurrencyPair> stockPairs;
