@@ -30,14 +30,15 @@ public class APITxHistoryController {
     public List<UserTrade> get() throws IOException {
         ExchangeSpecification spec = new PoloniexExchange().getDefaultExchangeSpecification();
         spec.setUserName("romeo97934@gmail.com");
-        spec.setApiKey("8RYK4NEK-5WM9MHSW-8XV4QFK2-4WKF16UZ");
-        spec.setSecretKey("0c3c4fe2edf25dd21493d8b5cf8d149848e4e7b8b86c9956172a0f01f6f8288fa203dda1b01777592254474833e3e8bd378dd98221439c6aabac7c52ab99b7ab");
+        spec.setApiKey("Z131FF6M-Z97OAOSN-S2CGX4QV-23LA20ER");
+        spec.setSecretKey("cf11acd600871a8144e6fb3d356b38015d5cc2c24a84a1d54dafca59597703947f2aea19679d5ed76a9b22129d08b6d3adf36fb787d7c43df82a3d0da4b888f3");
 
         Exchange exchange = ExchangeFactory.INSTANCE.createExchange(spec);
 
         PoloniexTradeService.PoloniexTradeHistoryParams params =
                 ((PoloniexTradeService.PoloniexTradeHistoryParams) exchange.getTradeService().createTradeHistoryParams());
 //        params.setCurrencyPair(new CurrencyPair("STEEM/BTC"));
+
 
         List<UserTrade> list = exchange.getTradeService()
                 .getTradeHistory(params)
