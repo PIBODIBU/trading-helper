@@ -24,7 +24,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/tx/history")
 public class APITxHistoryController {
-    private static final Logger log = LoggerFactory.getLogger(CurrencyRateTasks.class);
+    private static final Logger log = LoggerFactory.getLogger(APITxHistoryController.class);
 
     @RequestMapping(value = "/my", method = RequestMethod.GET)
     public List<UserTrade> get() throws IOException {
@@ -37,7 +37,7 @@ public class APITxHistoryController {
 
         PoloniexTradeService.PoloniexTradeHistoryParams params =
                 ((PoloniexTradeService.PoloniexTradeHistoryParams) exchange.getTradeService().createTradeHistoryParams());
-        params.setCurrencyPair(new CurrencyPair("XRP/BTC"));
+        params.setCurrencyPair(CurrencyPair.XRP_BTC);
 
         List<UserTrade> list = exchange.getTradeService()
                 .getTradeHistory(params)
