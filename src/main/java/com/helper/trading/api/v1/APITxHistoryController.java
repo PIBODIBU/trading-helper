@@ -1,5 +1,6 @@
 package com.helper.trading.api.v1;
 
+import com.helper.trading.schedule.CurrencyRateTasks;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
@@ -11,6 +12,8 @@ import org.knowm.xchange.poloniex.PoloniexExchange;
 import org.knowm.xchange.poloniex.service.PoloniexTradeService;
 import org.knowm.xchange.service.trade.params.DefaultTradeHistoryParamCurrencyPair;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +24,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/tx/history")
 public class APITxHistoryController {
+    private static final Logger log = LoggerFactory.getLogger(CurrencyRateTasks.class);
+
     @RequestMapping(value = "/my", method = RequestMethod.GET)
     public List<UserTrade> get() throws IOException {
         ExchangeSpecification spec = new PoloniexExchange().getDefaultExchangeSpecification();
@@ -34,8 +39,14 @@ public class APITxHistoryController {
                 ((PoloniexTradeService.PoloniexTradeHistoryParams) exchange.getTradeService().createTradeHistoryParams());
         params.setCurrencyPair(new CurrencyPair("XRP/BTC"));
 
-        return exchange.getTradeService()
+        List<UserTrade> list = exchange.getTradeService()
                 .getTradeHistory(params)
                 .getUserTrades();
+
+        for (UserTrade trade : list) {
+            log.info(trade.toString());
+        }
+
+        return list;
     }
 }
