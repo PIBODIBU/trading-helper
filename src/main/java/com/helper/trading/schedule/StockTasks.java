@@ -6,7 +6,11 @@ import com.helper.trading.service.CurrencyRateService;
 import com.helper.trading.service.StockService;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
+import org.knowm.xchange.bitstamp.service.BitstampTradeHistoryParams;
 import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.service.trade.params.DefaultTradeHistoryParamCurrencyPair;
+import org.knowm.xchange.service.trade.params.DefaultTradeHistoryParamPagingSorted;
+import org.knowm.xchange.utils.jackson.CurrencyPairDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +52,12 @@ public class StockTasks {
             if (stockPairs == null)
                 stockPairs = new HashSet<>();
 
+            log.info("Stock: " + stock.getName());
+
             for (CurrencyPair exchangePair : exchange.getExchangeSymbols()) {
                 alreadyExists = false;
+
+                log.info("Pair: " + exchangePair.toString());
 
                 for (com.helper.trading.model.CurrencyPair dbPair : stockPairs) {
                     if (dbPair != null && exchangePair != null)
@@ -57,16 +65,26 @@ public class StockTasks {
                             alreadyExists = true;
                 }
 
+                // Pair doesn't exist in stock's pairs. Need to get it from db and add to stock's pairs set
                 if (!alreadyExists) {
-                    stockPairs.add(currencyPairService.get(exchangePair.toString()));
-                    hasChanged = true;
+                    // Get pair from db by name
+                    com.helper.trading.model.CurrencyPair c = currencyPairService.get(exchangePair.toString());
+
+                    // Check if db contains such currency pair
+                    if (c != null) {
+                        log.info("Adding with id: " + String.valueOf(c.getId()));
+
+                        stockPairs.add(c);
+                        hasChanged = true;
+                    }
                 }
             }
 
+            // Stock model has changed. Need to refresh it
             if (hasChanged) {
                 stock.setCurrencyPairs(stockPairs);
-
                 Long id = stockService.update(stock);
+
                 log.info("Updated stock: " + String.valueOf(id));
             }
         }
