@@ -44,9 +44,9 @@ public class APITxHistoryController {
                 .getUserTrades();
 
         log.info("Trades of:" +
-                "\nUsername: ", exchange.getDefaultExchangeSpecification().getUserName() +
-                "\nApi key: ", exchange.getDefaultExchangeSpecification().getApiKey() +
-                "\nSecret: ", exchange.getDefaultExchangeSpecification().getSecretKey()
+                "\nUsername: ", spec.getUserName() + " | " + exchange.getAccountService().getAccountInfo().toString() +
+                "\nApi key: ", spec.getApiKey() +
+                "\nSecret: ", spec.getSecretKey()
         );
         for (UserTrade trade : list) {
             log.info(trade.toString());
