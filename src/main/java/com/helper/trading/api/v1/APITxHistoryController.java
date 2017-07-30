@@ -34,7 +34,7 @@ public class APITxHistoryController {
 //        params.setCurrencyPair(new CurrencyPair("STEEM/BTC"));
 
         List<UserTrade> list = exchange.getTradeService()
-                .getTradeHistory(params)
+                .getTradeHistory(exchange.getTradeService().createTradeHistoryParams())
                 .getUserTrades();
 
         log.info("Trades of:");
