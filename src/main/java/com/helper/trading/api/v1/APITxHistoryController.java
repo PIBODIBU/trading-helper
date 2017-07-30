@@ -33,12 +33,14 @@ public class APITxHistoryController {
                 ((PoloniexTradeService.PoloniexTradeHistoryParams) exchange.getTradeService().createTradeHistoryParams());
 //        params.setCurrencyPair(new CurrencyPair("STEEM/BTC"));
 
-        List<UserTrade> list = exchange.getTradeService()
+        List<UserTrade> list = exchange
+                .getTradeService()
                 .getTradeHistory(exchange.getTradeService().createTradeHistoryParams())
                 .getUserTrades();
 
         log.info("Trades of:");
         log.info("Username: ", spec.toString());
+        log.info("Size: ", list.size());
 
         for (UserTrade trade : list) {
             log.info(trade.toString());
