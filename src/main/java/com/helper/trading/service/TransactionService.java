@@ -4,6 +4,8 @@ import com.helper.trading.application.configuration.security.SecurityService;
 import com.helper.trading.model.Stock;
 import com.helper.trading.model.Transaction;
 import com.helper.trading.repository.TransactionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -18,6 +20,7 @@ import java.util.Set;
 public class TransactionService {
     private TransactionRepository repository;
     private SecurityService securityService;
+    private static final Logger log = LoggerFactory.getLogger(TransactionService.class);
 
     @Autowired
     public void setRepository(@Qualifier("TransactionRepository")
@@ -39,6 +42,9 @@ public class TransactionService {
     }
 
     public Set<Transaction> getMyByStock(Stock stock) {
+        log.info("Stock id: " + String.valueOf(stock.getId()));
+        log.info("User id: " + String.valueOf(securityService.getUserFromContext().getId()));
+
         return repository.findAllByUserAndStock(securityService.getUserFromContext(), stock);
     }
 
