@@ -94,9 +94,15 @@ public class APITxHistoryController {
         Set<Transaction> poloTxs = transactionService.getMyByStock(poloStock);
 
         for (UserTrade trade : userTrades) {
+            log.info("Checking: " + trade.toString());
+
             for (Transaction tx : poloTxs) {
+                log.info("Polo tx id: " + String.valueOf(tx.getId()));
+
                 if (tx.getTxId() != null)
                     if (!tx.getTxId().equals(Long.valueOf(trade.getId()))) {
+                        log.info("Tx found: " + String.valueOf(tx.getId()));
+
                         Transaction newTx = new Transaction();
                         CurrencyPair currencyPair = new CurrencyPair();
                         TxType txType = new TxType();
@@ -107,7 +113,7 @@ public class APITxHistoryController {
                             txType.setId(4L);
                         }
 
-                        currencyPair.setId(1L);
+                        currencyPair.setId(2L);
 
                         newTx.setTxId(Long.valueOf(trade.getId()));
                         newTx.setUser(securityService.getUserFromContext());
@@ -119,7 +125,8 @@ public class APITxHistoryController {
                         newTx.setTotal(newTx.getQuantity() * newTx.getQuantity());
                         newTx.setTradeDate(trade.getTimestamp());
 
-                        transactionService.add(newTx);
+                        Transaction txx = transactionService.add(newTx);
+                        log.info("Added tx id: " + String.valueOf(txx));
                     }
             }
         }
