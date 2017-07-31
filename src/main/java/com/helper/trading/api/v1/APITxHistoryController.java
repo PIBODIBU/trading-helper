@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,8 @@ public class APITxHistoryController {
         PoloniexTradeService.PoloniexTradeHistoryParams params =
                 ((PoloniexTradeService.PoloniexTradeHistoryParams) exchange.getTradeService().createTradeHistoryParams());
 //        params.setCurrencyPair(new CurrencyPair("STEEM/BTC"));
+        params.setStartTime(new Date(1498780800000L));
+        params.setEndTime(new Date());
 
         List<UserTrade> list = exchange
                 .getTradeService()
