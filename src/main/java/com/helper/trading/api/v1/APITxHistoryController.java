@@ -97,6 +97,7 @@ public class APITxHistoryController {
         Stock poloStock = stockService.get(3L);
         Set<Transaction> poloTxs = transactionService.getMyByStock(poloStock);
 
+        log.info("Stock id: " + String.valueOf(poloStock.getId()));
         log.info("My id: " + String.valueOf(securityService.getUserFromContext().getId()));
         log.info("Polo txs size: " + String.valueOf(poloTxs.size()));
 
