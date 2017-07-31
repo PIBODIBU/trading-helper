@@ -5,6 +5,7 @@ import com.helper.trading.model.CurrencyPair;
 import com.helper.trading.model.Stock;
 import com.helper.trading.model.Transaction;
 import com.helper.trading.model.TxType;
+import com.helper.trading.service.StockService;
 import com.helper.trading.service.TransactionService;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
@@ -31,11 +32,17 @@ public class APITxHistoryController {
     private static final Logger log = LoggerFactory.getLogger(APITxHistoryController.class);
 
     private TransactionService transactionService;
+    private StockService stockService;
     private SecurityService securityService;
 
     @Autowired
     public void setTransactionService(TransactionService transactionService) {
         this.transactionService = transactionService;
+    }
+
+    @Autowired
+    public void setStockService(StockService stockService) {
+        this.stockService = stockService;
     }
 
     @Autowired
@@ -82,15 +89,12 @@ public class APITxHistoryController {
         spec.setSecretKey("cf11acd600871a8144e6fb3d356b38015d5cc2c24a84a1d54dafca59597703947f2aea19679d5ed76a9b22129d08b6d3adf36fb787d7c43df82a3d0da4b888f3");
 
         Exchange exchange = ExchangeFactory.INSTANCE.createExchange(spec);
-        PoloniexTradeService.PoloniexTradeHistoryParams params =
-                ((PoloniexTradeService.PoloniexTradeHistoryParams) exchange.getTradeService().createTradeHistoryParams());
         List<UserTrade> userTrades = exchange
                 .getTradeService()
                 .getTradeHistory(exchange.getTradeService().createTradeHistoryParams())
                 .getUserTrades();
 
-        Stock poloStock = new Stock();
-        poloStock.setId(3L);
+        Stock poloStock = stockService.get(3L);
         Set<Transaction> poloTxs = transactionService.getMyByStock(poloStock);
 
         for (UserTrade trade : userTrades) {
