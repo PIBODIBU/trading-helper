@@ -1,6 +1,7 @@
 package com.helper.trading.service;
 
 import com.helper.trading.application.configuration.security.SecurityService;
+import com.helper.trading.model.Stock;
 import com.helper.trading.model.Transaction;
 import com.helper.trading.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,13 @@ public class TransactionService {
 
     public Page<Transaction> getMyByPage(Pageable pageable) {
         return repository.findAllByUser(pageable, securityService.getUserFromContext());
+    }
+
+    public Set<Transaction> getMyByStock(Stock stock) {
+        return repository.findAllByUserAndStock(securityService.getUserFromContext(), stock);
+    }
+
+    public Transaction add(Transaction transaction) {
+        return repository.save(transaction);
     }
 }

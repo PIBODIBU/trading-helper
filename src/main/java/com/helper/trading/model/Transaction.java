@@ -12,6 +12,9 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "tx_id")
+    private Long txId;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -53,6 +56,14 @@ public class Transaction {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getTxId() {
+        return txId;
+    }
+
+    public void setTxId(Long txId) {
+        this.txId = txId;
     }
 
     public User getUser() {

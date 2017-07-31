@@ -1,5 +1,6 @@
 package com.helper.trading.repository;
 
+import com.helper.trading.model.Stock;
 import com.helper.trading.model.Transaction;
 import com.helper.trading.model.user.User;
 import org.springframework.data.domain.Page;
@@ -16,4 +17,6 @@ public interface TransactionRepository extends PagingAndSortingRepository<Transa
     Set<Transaction> getAllByUser(User user);
 
     Page<Transaction> findAllByUser(Pageable pageable, User user);
+
+    Set<Transaction> findAllByUserAndStock(User user, Stock stock);
 }
