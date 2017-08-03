@@ -61,16 +61,14 @@ public class APITxHistoryController {
 
         PoloniexTradeService.PoloniexTradeHistoryParams params =
                 ((PoloniexTradeService.PoloniexTradeHistoryParams) exchange.getTradeService().createTradeHistoryParams());
-        params.setStartTime(new Date(1498780800000L));
-        params.setEndTime(new Date());
+//        params.setStartTime(new Date(1498780800000L));
+//        params.setEndTime(new Date());
 
         List<UserTrade> list = exchange
                 .getTradeService()
                 .getTradeHistory(params)
                 .getUserTrades();
 
-        log.info("Trades of:");
-        log.info("Username: ", spec.toString());
         log.info("Size: ", list.size());
 
         for (UserTrade trade : list) {
@@ -83,14 +81,17 @@ public class APITxHistoryController {
     @RequestMapping(value = "/sync", method = RequestMethod.GET)
     public void sync() throws IOException {
         ExchangeSpecification spec = new PoloniexExchange().getDefaultExchangeSpecification();
+        Exchange exchange = ExchangeFactory.INSTANCE.createExchange(spec);
+        PoloniexTradeService.PoloniexTradeHistoryParams params =
+                ((PoloniexTradeService.PoloniexTradeHistoryParams) exchange.getTradeService().createTradeHistoryParams());
+
         spec.setUserName("romeo97934@gmail.com");
         spec.setApiKey("Z131FF6M-Z97OAOSN-S2CGX4QV-23LA20ER");
         spec.setSecretKey("cf11acd600871a8144e6fb3d356b38015d5cc2c24a84a1d54dafca59597703947f2aea19679d5ed76a9b22129d08b6d3adf36fb787d7c43df82a3d0da4b888f3");
 
-        Exchange exchange = ExchangeFactory.INSTANCE.createExchange(spec);
         List<UserTrade> userTrades = exchange
                 .getTradeService()
-                .getTradeHistory(exchange.getTradeService().createTradeHistoryParams())
+                .getTradeHistory(params)
                 .getUserTrades();
 
         Stock poloStock = stockService.get(3L);
