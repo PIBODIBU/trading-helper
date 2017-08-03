@@ -106,18 +106,42 @@ public class APITxHistoryController {
         Stock poloStock = stockService.get(3L);
         Set<Transaction> poloTxs = transactionService.getMyByStock(poloStock);
 
-        log.info("Polo txs size: " + String.valueOf(poloTxs.size()));
+        if (poloTxs.size() == 0) {
+            for (UserTrade trade : userTrades) {
+                Transaction newTx = new Transaction();
+                CurrencyPair currencyPair = new CurrencyPair();
+                TxType txType = new TxType();
+
+                if (trade.getType().equals(Order.OrderType.ASK)) {
+                    txType.setId(3L);
+                } else {
+                    txType.setId(4L);
+                }
+
+                currencyPair.setId(2L);
+
+                newTx.setTxId(Long.valueOf(trade.getId()));
+                newTx.setUser(securityService.getUserFromContext());
+                newTx.setStock(poloStock);
+                newTx.setCurrencyPair(currencyPair);
+                newTx.setTxType(txType);
+                newTx.setTradePrice(trade.getPrice().doubleValue());
+                newTx.setQuantity(trade.getTradableAmount().doubleValue());
+                newTx.setTotal(newTx.getQuantity() * newTx.getQuantity());
+                newTx.setTradeDate(trade.getTimestamp());
+
+                transactionService.add(newTx);
+            }
+
+            return;
+        }
 
         for (UserTrade trade : userTrades) {
             log.info("Checking: " + trade.toString());
 
             for (Transaction tx : poloTxs) {
-                log.info("Polo tx id: " + String.valueOf(tx.getId()));
-
                 if (tx.getTxId() != null)
                     if (!tx.getTxId().equals(Long.valueOf(trade.getId()))) {
-                        log.info("Tx found: " + String.valueOf(tx.getId()));
-
                         Transaction newTx = new Transaction();
                         CurrencyPair currencyPair = new CurrencyPair();
                         TxType txType = new TxType();
@@ -140,8 +164,7 @@ public class APITxHistoryController {
                         newTx.setTotal(newTx.getQuantity() * newTx.getQuantity());
                         newTx.setTradeDate(trade.getTimestamp());
 
-                        Transaction txx = transactionService.add(newTx);
-                        log.info("Added tx id: " + String.valueOf(txx));
+                        transactionService.add(newTx);
                     }
             }
         }
