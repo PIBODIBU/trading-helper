@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 
 @Service("TransactionService")
-@Transactional(value = "txManager", readOnly = true)
+@Transactional(value = "txManager")
 public class TransactionService {
     private TransactionRepository repository;
     private SecurityService securityService;
