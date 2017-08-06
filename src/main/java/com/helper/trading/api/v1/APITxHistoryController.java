@@ -18,10 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/v1/tx/history")
@@ -107,9 +104,16 @@ public class APITxHistoryController {
         }
 
         for (UserTrade trade : userTrades) {
-            for (Transaction tx : poloTxs)
+            for (Transaction tx : poloTxs) {
+                log.info("Poloniex tx id: " + String.valueOf(tx.getTxId()));
+                log.info("User trade tx id: " + String.valueOf(Long.valueOf(trade.getId())));
+                log.info("Equals 1? " + (tx.getTxId() != Long.valueOf(trade.getId())));
+                log.info("Equals 2? " + (tx.getTxId().equals(Long.valueOf(trade.getId()))));
+                log.info("Equals 3? " + (Objects.equals(tx.getTxId(), Long.valueOf(trade.getId()))));
+
                 if (tx.getTxId() != null && tx.getTxId() != Long.valueOf(trade.getId()))
                     newTxs.add(transactionService.fromUserTrade(trade));
+            }
 
             transactionService.add(newTxs);
         }
