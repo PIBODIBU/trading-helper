@@ -33,13 +33,11 @@ public class TransactionService {
     }
 
     public Page<Transaction> getMyByPage(Pageable pageable) {
-        return repository.findAllByUser(pageable, securityService.getUserFromContext());
+        return repository.findByUser(pageable, securityService.getUserFromContext());
     }
 
     public Set<Transaction> getMyByStock(Stock stock) {
-        log.info("My id: " + String.valueOf(securityService.getUserFromContext().getId()));
-
-        return repository.findAllByUserAndStock(securityService.getUserFromContext(), stock);
+        return repository.findByUserAndStock(securityService.getUserFromContext(), stock);
     }
 
     public Transaction add(Transaction transaction) {

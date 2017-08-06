@@ -14,7 +14,7 @@ import java.util.Set;
 public interface TransactionRepository extends PagingAndSortingRepository<Transaction, Long> {
     Set<Transaction> getAllByUser(User user);
 
-    Page<Transaction> findAllByUser(Pageable pageable, User user);
+    Page<Transaction> findByUser(Pageable pageable, User user);
 
-    Set<Transaction> findAllByUserAndStock(User user, Stock stock);
+    Set<Transaction> findByUserAndStock(User user, Stock stock);
 }
