@@ -5,8 +5,10 @@ import com.helper.trading.model.CurrencyPair;
 import com.helper.trading.model.Stock;
 import com.helper.trading.model.Transaction;
 import com.helper.trading.model.TxType;
+import com.helper.trading.service.CurrencyPairService;
 import com.helper.trading.service.StockService;
 import com.helper.trading.service.TransactionService;
+import com.helper.trading.service.TxTypeService;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @RestController
@@ -34,6 +37,8 @@ public class APITxHistoryController {
     private TransactionService transactionService;
     private StockService stockService;
     private SecurityService securityService;
+    private CurrencyPairService currencyPairService;
+    private TxTypeService txTypeService;
 
     @Autowired
     public void setTransactionService(TransactionService transactionService) {
@@ -48,6 +53,16 @@ public class APITxHistoryController {
     @Autowired
     public void setSecurityService(SecurityService securityService) {
         this.securityService = securityService;
+    }
+
+    @Autowired
+    public void setCurrencyPairService(CurrencyPairService currencyPairService) {
+        this.currencyPairService = currencyPairService;
+    }
+
+    @Autowired
+    public void setTxTypeService(TxTypeService txTypeService) {
+        this.txTypeService = txTypeService;
     }
 
     @RequestMapping(value = "/my", method = RequestMethod.GET)
@@ -92,8 +107,7 @@ public class APITxHistoryController {
         spec.setSecretKey("cf11acd600871a8144e6fb3d356b38015d5cc2c24a84a1d54dafca59597703947f2aea19679d5ed76a9b22129d08b6d3adf36fb787d7c43df82a3d0da4b888f3");
 
         exchange = ExchangeFactory.INSTANCE.createExchange(spec);
-        params =
-                ((PoloniexTradeService.PoloniexTradeHistoryParams) exchange.getTradeService().createTradeHistoryParams());
+        params = ((PoloniexTradeService.PoloniexTradeHistoryParams) exchange.getTradeService().createTradeHistoryParams());
 
         params.setStartTime(new Date(1L));
         params.setEndTime(new Date());
@@ -104,69 +118,20 @@ public class APITxHistoryController {
                 .getUserTrades();
 
         Stock poloStock = stockService.get(3L);
+
         Set<Transaction> poloTxs = transactionService.getMyByStock(poloStock);
 
-        if (poloTxs.size() == 0) {
-            for (UserTrade trade : userTrades) {
-                Transaction newTx = new Transaction();
-                CurrencyPair currencyPair = new CurrencyPair();
-                TxType txType = new TxType();
-
-                if (trade.getType().equals(Order.OrderType.ASK)) {
-                    txType.setId(3L);
-                } else {
-                    txType.setId(4L);
-                }
-
-                currencyPair.setId(2L);
-
-                newTx.setTxId(Long.valueOf(trade.getId()));
-                newTx.setUser(securityService.getUserFromContext());
-                newTx.setStock(poloStock);
-                newTx.setCurrencyPair(currencyPair);
-                newTx.setTxType(txType);
-                newTx.setTradePrice(trade.getPrice().doubleValue());
-                newTx.setQuantity(trade.getTradableAmount().doubleValue());
-                newTx.setTotal(newTx.getQuantity() * newTx.getQuantity());
-                newTx.setTradeDate(trade.getTimestamp());
-
-                transactionService.add(newTx);
-            }
+        if (poloTxs == null || poloTxs.size() == 0) {
+            for (UserTrade trade : userTrades)
+                transactionService.add(transactionService.fromUserTrade(trade));
 
             return;
         }
 
         for (UserTrade trade : userTrades) {
-            log.info("Checking: " + trade.toString());
-
-            for (Transaction tx : poloTxs) {
-                if (tx.getTxId() != null)
-                    if (!tx.getTxId().equals(Long.valueOf(trade.getId()))) {
-                        Transaction newTx = new Transaction();
-                        CurrencyPair currencyPair = new CurrencyPair();
-                        TxType txType = new TxType();
-
-                        if (trade.getType().equals(Order.OrderType.ASK)) {
-                            txType.setId(3L);
-                        } else {
-                            txType.setId(4L);
-                        }
-
-                        currencyPair.setId(2L);
-
-                        newTx.setTxId(Long.valueOf(trade.getId()));
-                        newTx.setUser(securityService.getUserFromContext());
-                        newTx.setStock(poloStock);
-                        newTx.setCurrencyPair(currencyPair);
-                        newTx.setTxType(txType);
-                        newTx.setTradePrice(trade.getPrice().doubleValue());
-                        newTx.setQuantity(trade.getTradableAmount().doubleValue());
-                        newTx.setTotal(newTx.getQuantity() * newTx.getQuantity());
-                        newTx.setTradeDate(trade.getTimestamp());
-
-                        transactionService.add(newTx);
-                    }
-            }
+            for (Transaction tx : poloTxs)
+                if (tx.getTxId() != null && !Objects.equals(tx.getTxId(), Long.valueOf(trade.getId())))
+                    transactionService.add(transactionService.fromUserTrade(trade));
         }
     }
 }
