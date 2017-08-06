@@ -64,7 +64,7 @@ public class TransactionService {
         newTx.setTxType(txType);
         newTx.setTradePrice(userTrade.getPrice().doubleValue());
         newTx.setQuantity(userTrade.getTradableAmount().doubleValue());
-        newTx.setTotal(newTx.getQuantity() * newTx.getQuantity());
+        newTx.setTotal(newTx.getTradePrice() * newTx.getQuantity());
         newTx.setTradeDate(userTrade.getTimestamp());
 
         return newTx;

@@ -220,8 +220,8 @@
 
                             <div layout="column" flex="50">
                                 <span class="md-caption">Total</span>
-                                <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.total}} {{tx.currencyPairInfo | currencyCounter}}</span></b>
-                                <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.total}} {{tx.currencyPairInfo | currencyBase}}</span></b>
+                                <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.total | number: 5}} {{tx.currencyPairInfo | currencyCounter}}</span></b>
+                                <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.total | number: 5}} {{tx.currencyPairInfo | currencyBase}}</span></b>
                             </div>
 
                             <div flex="100" layout="column">
@@ -293,14 +293,14 @@
 
                         <div layout="column" flex="50">
                             <span class="md-caption">Quantity</span>
-                            <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.quantity}} {{tx.currencyPairInfo | currencyBase}}</span></b>
-                            <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.quantity}} {{tx.currencyPairInfo | currencyCounter}}</span></b>
+                            <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.quantity | number: 5}} {{tx.currencyPairInfo | currencyBase}}</span></b>
+                            <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.quantity | number: 5}} {{tx.currencyPairInfo | currencyCounter}}</span></b>
                         </div>
 
                         <div layout="column" flex="50">
                             <span class="md-caption">Total</span>
-                            <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.total}} {{tx.currencyPairInfo | currencyCounter}}</span></b>
-                            <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.total}} {{tx.currencyPairInfo | currencyBase}}</span></b>
+                            <b><span class="md-headline" ng-if="tx.txType.name == 'Buy'">{{tx.total | number: 5}} {{tx.currencyPairInfo | currencyCounter}}</span></b>
+                            <b><span class="md-headline" ng-if="tx.txType.name == 'Sell'">{{tx.total | number: 5}} {{tx.currencyPairInfo | currencyBase}}</span></b>
                         </div>
 
                         <div flex="100" layout="column">

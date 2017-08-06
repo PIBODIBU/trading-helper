@@ -67,28 +67,6 @@ app.controller('MenuLeftController', function ($scope, $rootScope, $http) {
     $http.get("/resources/data/currency_pairs.json", {dataType: 'jsonp'})
         .success(function (data) {
             $scope.currPairs = data;
-            $rootScope.tickers = [];
-            var found;
-
-            $scope.currPairs.forEach(function (pair) {
-                found = false;
-
-                $rootScope.tickers.forEach(function (ticker) {
-                    if (pair !== null && ticker !== null && pair.name === ticker.currencyPair) {
-                        pair.ticker = ticker;
-                        found = true;
-                        return;
-                    }
-                });
-
-                if (!found)
-                    $http.get("/api/currency/ticker?currency_pair_id=" + pair.pair_id + '&stock_id=' + pair.stock_id)
-                        .success(function (data) {
-                            pair.ticker = data;
-                            $rootScope.tickers.push(data);
-                        });
-
-            });
         });
 
     $http.get("/resources/data/stocks.json")
@@ -164,7 +142,7 @@ app.controller('TXListController', function ($scope, $rootScope, $mdEditDialog, 
                 $scope.txsMeta = data;
                 $scope.txs = data.content;
 
-                $timeout(angularGridInstance.cards.windowResizeCallback, 1000); // Bug fixed
+                //$timeout(angularGridInstance.cards.windowResizeCallback, 1000); // Bug fixed
 
                 api_tx.addTickers($scope.txs);
             })
