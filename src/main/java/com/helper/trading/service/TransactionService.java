@@ -37,7 +37,7 @@ public class TransactionService {
     }
 
     public Set<Transaction> getMyByStock(Stock stock) {
-        log.info("My id: " + String.valueOf(securityService.getUserFromContext()));
+        log.info("My id: " + String.valueOf(securityService.getUserFromContext().getId()));
 
         return repository.findAllByUserAndStock(securityService.getUserFromContext(), stock);
     }
