@@ -86,11 +86,9 @@ public class APITxHistoryController {
                 .getTradeHistory(params)
                 .getUserTrades();
 
-        Stock poloStock = stockService.get(3L);
+        Stock poloStock = stockService.get(2L);
 
         Set<Transaction> poloTxs = transactionService.getMyByStock(poloStock);
-
-        log.info("Size: " + String.valueOf(poloTxs.size()));
 
         if (poloTxs == null || poloTxs.size() == 0) {
             for (UserTrade trade : userTrades)

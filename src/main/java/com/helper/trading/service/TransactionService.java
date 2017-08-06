@@ -37,7 +37,7 @@ public class TransactionService {
     }
 
     public Set<Transaction> getMyByStock(Stock stock) {
-        return repository.findByStock(stock);
+        return repository.findByUserAndStock(securityService.getUserFromContext(), stock);
     }
 
     public Transaction add(Transaction transaction) {
