@@ -17,4 +17,6 @@ public interface TransactionRepository extends PagingAndSortingRepository<Transa
     Page<Transaction> findByUser(Pageable pageable, User user);
 
     Set<Transaction> findByUserAndStock(User user, Stock stock);
+
+    Set<Transaction> findByUser(User user);
 }
