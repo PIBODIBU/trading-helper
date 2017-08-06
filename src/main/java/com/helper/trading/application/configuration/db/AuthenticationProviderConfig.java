@@ -16,7 +16,7 @@ public class AuthenticationProviderConfig {
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://81.162.228.39/tradinghelper");
+        dataSource.setUrl("jdbc:mysql://81.162.228.39:3306/tradinghelper");
         dataSource.setUsername("root");
         dataSource.setPassword("");
 
