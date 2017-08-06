@@ -102,12 +102,6 @@ public class APITxHistoryController {
 
         for (UserTrade trade : userTrades) {
             for (Transaction tx : poloTxs) {
-                log.info("Poloniex tx id: " + String.valueOf(tx.getTxId()));
-                log.info("User trade tx id: " + String.valueOf(Long.valueOf(trade.getId())));
-                log.info("Equals 1? " + (tx.getTxId() != Long.valueOf(trade.getId())));
-                log.info("Equals 2? " + (tx.getTxId().equals(Long.valueOf(trade.getId()))));
-                log.info("Equals 3? " + (Objects.equals(tx.getTxId(), Long.valueOf(trade.getId()))));
-
                 if (tx.getTxId() != null && tx.getTxId() != Long.valueOf(trade.getId()))
                     newTxs.add(transactionService.fromUserTrade(trade));
             }

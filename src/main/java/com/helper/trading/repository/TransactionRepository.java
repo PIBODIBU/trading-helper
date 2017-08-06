@@ -19,4 +19,6 @@ public interface TransactionRepository extends PagingAndSortingRepository<Transa
     Set<Transaction> findByUserAndStock(User user, Stock stock);
 
     Set<Transaction> findByUser(User user);
+
+    Set<Transaction> findByStock(Stock stock);
 }
