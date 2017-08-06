@@ -54,6 +54,9 @@ public class TransactionService {
         txType = txTypeService.fromUserTrade(userTrade);
         poloStock = stockService.get(3L);
 
+        if (currencyPair == null)
+            currencyPair = currencyPairService.get(1L);
+
         newTx.setTxId(Long.valueOf(userTrade.getId()));
         newTx.setUser(securityService.getUserFromContext());
         newTx.setStock(poloStock);

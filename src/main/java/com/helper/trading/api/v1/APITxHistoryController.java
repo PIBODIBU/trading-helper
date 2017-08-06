@@ -1,18 +1,12 @@
 package com.helper.trading.api.v1;
 
-import com.helper.trading.application.configuration.security.SecurityService;
-import com.helper.trading.model.CurrencyPair;
 import com.helper.trading.model.Stock;
 import com.helper.trading.model.Transaction;
-import com.helper.trading.model.TxType;
-import com.helper.trading.service.CurrencyPairService;
 import com.helper.trading.service.StockService;
 import com.helper.trading.service.TransactionService;
-import com.helper.trading.service.TxTypeService;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.ExchangeSpecification;
-import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.trade.UserTrade;
 import org.knowm.xchange.poloniex.PoloniexExchange;
 import org.knowm.xchange.poloniex.service.PoloniexTradeService;
@@ -36,9 +30,6 @@ public class APITxHistoryController {
 
     private TransactionService transactionService;
     private StockService stockService;
-    private SecurityService securityService;
-    private CurrencyPairService currencyPairService;
-    private TxTypeService txTypeService;
 
     @Autowired
     public void setTransactionService(TransactionService transactionService) {
@@ -48,21 +39,6 @@ public class APITxHistoryController {
     @Autowired
     public void setStockService(StockService stockService) {
         this.stockService = stockService;
-    }
-
-    @Autowired
-    public void setSecurityService(SecurityService securityService) {
-        this.securityService = securityService;
-    }
-
-    @Autowired
-    public void setCurrencyPairService(CurrencyPairService currencyPairService) {
-        this.currencyPairService = currencyPairService;
-    }
-
-    @Autowired
-    public void setTxTypeService(TxTypeService txTypeService) {
-        this.txTypeService = txTypeService;
     }
 
     @RequestMapping(value = "/my", method = RequestMethod.GET)
