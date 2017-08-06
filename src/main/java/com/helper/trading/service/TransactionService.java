@@ -44,6 +44,10 @@ public class TransactionService {
         return repository.save(transaction);
     }
 
+    public void add(Set<Transaction> transactions) {
+        repository.save(transactions);
+    }
+
     public Transaction fromUserTrade(UserTrade userTrade) {
         Transaction newTx = new Transaction();
         Stock poloStock;

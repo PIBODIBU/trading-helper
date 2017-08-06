@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @RestController
@@ -74,6 +74,7 @@ public class APITxHistoryController {
 
     @RequestMapping(value = "/sync", method = RequestMethod.GET)
     public void sync() throws IOException {
+        Set<Transaction> newTxs = new HashSet<>();
         ExchangeSpecification spec = new PoloniexExchange().getDefaultExchangeSpecification();
         Exchange exchange;
         PoloniexTradeService.PoloniexTradeHistoryParams params;
@@ -99,15 +100,18 @@ public class APITxHistoryController {
 
         if (poloTxs == null || poloTxs.size() == 0) {
             for (UserTrade trade : userTrades)
-                transactionService.add(transactionService.fromUserTrade(trade));
+                newTxs.add(transactionService.fromUserTrade(trade));
 
+            transactionService.add(newTxs);
             return;
         }
 
         for (UserTrade trade : userTrades) {
             for (Transaction tx : poloTxs)
                 if (tx.getTxId() != null && tx.getTxId() != Long.valueOf(trade.getId()))
-                    transactionService.add(transactionService.fromUserTrade(trade));
+                    newTxs.add(transactionService.fromUserTrade(trade));
+
+            transactionService.add(newTxs);
         }
     }
 }
