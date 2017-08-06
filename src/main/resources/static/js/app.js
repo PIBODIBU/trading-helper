@@ -224,7 +224,7 @@ app.service('api_stock', function ($http, api) {
 
 app.service('api_rate', function ($http, api) {
     this.getPagedByStock = function (page, size, stock_id) {
-        return $http.get(api.prepareParams(api.URL + 'rate/list/stock',
+        return $http.get(api.prepareParams(api.URL + 'rate/list',
             [
                 {name: 'page', value: page},
                 {name: 'size', value: size},

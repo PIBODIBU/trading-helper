@@ -25,7 +25,7 @@ public class APICurrencyRateController {
         return currencyRateService.paged(pageable);
     }
 
-    @RequestMapping(value = "/list/stock", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET, params = {"stock_id"})
     public Page<CurrencyRate> listByStock(@RequestParam("stock_id") Long stockId, Pageable pageable) {
         return currencyRateService.pagedByStock(pageable, stockId);
     }

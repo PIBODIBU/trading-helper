@@ -26,7 +26,7 @@ public class APIStockController {
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public Stock list(@RequestParam("stock_id") Long id) {
+    public Stock get(@RequestParam("stock_id") Long id) {
         return stockService.get(id);
     }
 }

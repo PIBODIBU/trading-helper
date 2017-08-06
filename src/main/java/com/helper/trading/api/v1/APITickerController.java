@@ -58,11 +58,6 @@ public class APITickerController {
 
         CurrencyRate currencyRate = rateService.get(stock, currencyPair);
 
-        if (currencyRate != null)
-            log.info("Rate: " + currencyRate.getRate());
-        else
-            log.info("Rate object is null");
-
         return gson.toJson(currencyRate);
     }
 }
