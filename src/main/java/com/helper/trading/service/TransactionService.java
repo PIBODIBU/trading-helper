@@ -52,7 +52,7 @@ public class TransactionService {
 
         currencyPair = currencyPairService.get(userTrade.getCurrencyPair().toString());
         txType = txTypeService.fromUserTrade(userTrade);
-        poloStock = stockService.get(3L);
+        poloStock = stockService.get(2L);
 
         if (currencyPair == null)
             currencyPair = currencyPairService.get(1L);
