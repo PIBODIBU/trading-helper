@@ -29,11 +29,6 @@ public class APITxHistoryController {
     private StockService stockService;
 
     @Autowired
-    public void setTransactionService(TransactionService transactionService) {
-        this.transactionService = transactionService;
-    }
-
-    @Autowired
     public void setStockService(StockService stockService) {
         this.stockService = stockService;
     }
@@ -119,5 +114,10 @@ public class APITxHistoryController {
 
             transactionService.add(newTxs);
         }
+    }
+
+    @Autowired
+    public void setTransactionService(TransactionService transactionService) {
+        this.transactionService = transactionService;
     }
 }
