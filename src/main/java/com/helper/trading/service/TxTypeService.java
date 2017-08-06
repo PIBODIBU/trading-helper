@@ -20,6 +20,6 @@ public class TxTypeService {
         if (userTrade == null)
             return null;
 
-        return txTypeRepository.findOne(userTrade.getType().equals(Order.OrderType.ASK) ? 3L : 4L);
+        return txTypeRepository.findFirstByName(userTrade.getType().equals(Order.OrderType.ASK) ? "Buy" : "Sell");
     }
 }
