@@ -100,6 +100,8 @@ public class APITxHistoryController {
 
         for (UserTrade trade : userTrades) {
             for (Transaction tx : poloTxs) {
+                log.info(String.valueOf(tx.getId()) + " - " + String.valueOf(Long.valueOf(trade.getId())) +
+                        " = " + String.valueOf(tx.getTxId() != Long.valueOf(trade.getId())));
                 if (tx.getTxId() != null && tx.getTxId() != Long.valueOf(trade.getId()))
                     newTxs.add(transactionService.fromUserTrade(trade));
             }
