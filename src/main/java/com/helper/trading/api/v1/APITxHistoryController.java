@@ -102,15 +102,20 @@ public class APITxHistoryController {
         for (UserTrade trade : userTrades) {
             txAlreadyAdded = false;
 
+            log.info("Checking: " + trade.getId());
+
             for (Transaction tx : poloTxs) {
                 if (tx.getTxId() == Long.valueOf(trade.getId())) {
                     txAlreadyAdded = true;
+                    log.info("Found: " + String.valueOf(tx.getId()));
                     break;
                 }
             }
 
             if (!txAlreadyAdded)
                 newTxs.add(transactionService.fromUserTrade(trade));
+            else
+                log.info("Tx already added");
         }
 
         transactionService.add(newTxs);
