@@ -66,6 +66,7 @@ public class APITxHistoryController {
 
     @RequestMapping(value = "/sync", method = RequestMethod.GET)
     public void sync() throws IOException {
+        boolean txAlreadyAdded = false;
         Set<Transaction> newTxs = new HashSet<>();
         ExchangeSpecification spec = new PoloniexExchange().getDefaultExchangeSpecification();
         Exchange exchange;
@@ -99,15 +100,20 @@ public class APITxHistoryController {
         }
 
         for (UserTrade trade : userTrades) {
+            txAlreadyAdded = false;
+
             for (Transaction tx : poloTxs) {
-                log.info(String.valueOf(tx.getId()) + " - " + String.valueOf(Long.valueOf(trade.getId())) +
-                        " = " + String.valueOf(tx.getTxId() != Long.valueOf(trade.getId())));
-                if (tx.getTxId() != null && tx.getTxId() != Long.valueOf(trade.getId()))
-                    newTxs.add(transactionService.fromUserTrade(trade));
+                if (tx.getTxId() == Long.valueOf(trade.getId())) {
+                    txAlreadyAdded = true;
+                    break;
+                }
             }
 
-            transactionService.add(newTxs);
+            if (!txAlreadyAdded)
+                newTxs.add(transactionService.fromUserTrade(trade));
         }
+
+        transactionService.add(newTxs);
     }
 
     @Autowired
