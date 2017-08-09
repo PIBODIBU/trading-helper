@@ -198,3 +198,11 @@ app.controller('StockListController', function ($scope, $routeParams, api, api_s
             });
     }
 });
+
+app.controller('TestCtrl', function ($scope, $httpProvider, $http) {
+    $httpProvider.defaults.timeout = 60000;
+
+    $scope.send = function () {
+        $http.get('https://trading-helper.herokuapp.com/api/v1/tx/history/sync');
+    }
+});
