@@ -41,6 +41,11 @@ app.config(function ($mdIconProvider) {
         .defaultIconSet('/resources/icons/mdi.svg')
 });
 
+// Http config
+app.config(function ($httpProvider) {
+    $httpProvider.defaults.timeout = 60000;
+});
+
 // Routes
 app.config(function ($routeProvider) {
     $routeProvider
